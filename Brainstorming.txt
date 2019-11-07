@@ -18,7 +18,7 @@ Correo resumen del mes
 
 Base de datos
 
-Usuarios
+Usuarios OK
 
 id_u | nombre_u | email_u | contraseña_u
 
@@ -26,19 +26,22 @@ Gastos
 
 id_g | id_usuario_g | monto_g | id_categoria_g | detalle_g | vencimiento_g | banco_g
 
-Categoría_gastos
+Categorías__gastos
 
-id_c | descripcion_c
+id_cg | categoria_cg
 
-Categoria_usuarios
+Categorias_g_usuarios
 
-id_cu | id_u_cu | descripcion_cu
+id_cu | id_u_cu | categoria_cu
 
 Ingresos
 
 Id_i | id_usuario_i | monto_i | categoría_i
 
 Categoria_ingresos
+id_ci | categoria_i
+
+Categoria_i_usuarios
 
 id_ci | id_u_ci | descripcion_ci
 
