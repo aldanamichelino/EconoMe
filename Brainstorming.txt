@@ -36,12 +36,12 @@ id_cu | id_u_cu | categoria_cu
 
 Ingresos
 
-Id_i | id_usuario_i | monto_i | categoría_i
+Id_i | id_usuario_i | monto_i | id_categoría_i
 
-Categoria_ingresos
+Categorias_ingresos
 id_ci | categoria_i
 
-Categoria_i_usuarios
+Categorias_i_usuarios
 
 id_ci | id_u_ci | descripcion_ci
 
