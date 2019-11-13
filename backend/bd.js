@@ -9,6 +9,6 @@ var pool = mysql.createPool({
     database: process.env.DB_DATABASE
 });
 
-pool.query = util.promisify(pool.query)
+pool.query = util.promisify(pool.query);
 
 module.exports = pool;

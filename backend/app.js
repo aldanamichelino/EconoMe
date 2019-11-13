@@ -3,8 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const cors = require('cors');
 
-var indexRouter = require('./routes/index');
+dotenv.config();
+
+var indexRouter = require('./controllers/index');
 var usuariosRouter = require('./controllers/usuarios');
 
 var app = express();
