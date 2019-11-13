@@ -7,14 +7,13 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
-<<<<<<< HEAD
-=======
 dotenv.config();
 
->>>>>>> 9add39164dc7b46709c79d6ed13971140a5793d0
 var indexRouter = require('./controllers/index');
 var usuariosRouter = require('./controllers/usuarios');
-var registroRouter = require('./controllers/registro');
+const registro = require('./controllers/registro');
+
+
 
 var app = express();
 
@@ -30,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/usuarios', usuariosRouter);
-app.use('/registro', registroRouter);
+app.use('/registro', registro);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

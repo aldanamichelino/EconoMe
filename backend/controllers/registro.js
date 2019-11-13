@@ -4,13 +4,12 @@ const registroModel = require('../models/registroModel');
 const uuid = require('uuid');
 const md5 = require('md5');
 
-router.post('/:id_u', async(req,res,next) => {
+router.post('/', async(req,res,next) => {
     try {
         let obj = {
-            id_u : req.params.id_u,
             nombre_u : req.body.nombre,
             apellido_u : req.body.apellido,
-            email_u : req.body.mail,
+            email_u : req.body.email,
             codigo_email_u : uuid(),
             password_u : md5(req.body.password)
         }
@@ -30,4 +29,4 @@ router.post('/:id_u', async(req,res,next) => {
     }
 })
 
-module.exports  = router;
+module.exports = router;
