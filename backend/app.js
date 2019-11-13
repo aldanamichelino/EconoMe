@@ -3,7 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const cors = require('cors');
 
+<<<<<<< HEAD
+=======
+dotenv.config();
+
+>>>>>>> 9add39164dc7b46709c79d6ed13971140a5793d0
 var indexRouter = require('./controllers/index');
 var usuariosRouter = require('./controllers/usuarios');
 var registroRouter = require('./controllers/registro');
