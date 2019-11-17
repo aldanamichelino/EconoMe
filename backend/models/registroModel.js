@@ -5,23 +5,26 @@ async function registrar(obj){
     try {
         let query = "insert into ?? set ?";
         const rows = await pool.query(query, [process.env.TABLA_USUARIOS, obj]);
-        if(rows.insertId != undefined) {
-            console.log('Usuario agregado');
-            
-            // let id_correo = await correosModel.sendGenericEmail(obj);
-            // if(id_correo) {
-            //     return true;
-            // } else {
-            //     return false; 
-
-            // }
-        } else {
-            console.log('Te la mandaste');
-        }
+        return rows.insertId;
 
     } catch (error) {
+        console.log('error al insertar usuario');
         throw error;
     }
 }
 
-module.exports = {registrar}
+async function confirmarUsuario(codigo){
+    try{
+        let query = "update ?? set cuenta_confirmada_u = 1 where codigo_email_u = ? and cuenta_confirmada_u = 0";
+        const rows = await pool.query(query,[process.env.TABLA_USUARIOS, codigo]);
+        return rows;
+
+    } catch(error) {
+        console.log('error al confirmar usuario');
+        throw(error);
+    }
+}
+
+module.exports = {
+    registrar,
+    confirmarUsuario }
