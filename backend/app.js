@@ -12,6 +12,10 @@ dotenv.config();
 var indexRouter = require('./controllers/index');
 var usuariosRouter = require('./controllers/usuarios');
 const registro = require('./controllers/registro');
+const auth = require('./controllers/auth');
+const ahorros = require('./controllers/ahorros')
+;
+const cuentaProyecto = require('./controllers/cuentaProyecto');
 
 
 
@@ -30,6 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/registro', registro);
+app.use('/auth', auth);
+app.use('/ahorros', ahorros);
+app.use('/cuentaProyecto', cuentaProyecto);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

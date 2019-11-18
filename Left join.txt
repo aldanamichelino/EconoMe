@@ -1,0 +1,5 @@
+insert into ahorros
+select cuenta_proyecto.id_cp, ahorros.monto_a, ahorros.id_cp_a
+from cuenta_proyecto
+left join ahorros
+on cuenta_proyecto.id_cp = ahorros.id_cp_a;

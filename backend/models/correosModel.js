@@ -1,6 +1,3 @@
-const mysql = require('../bd');
-const utils = require('util');
-const query = utils.promisify(mysql.query).bind(mysql);
 const nodemailer = require('nodemailer');
 
 async function sendEmail(obj) {

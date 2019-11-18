@@ -11,6 +11,17 @@ async function getUsuario(id) {
     }
 }
 
+async function getUsuarioPorEmail(email, password){
+  try{
+      let query = "select id_u, nombre_u, cuenta_confirmada_u from ?? where email_u = ? and password_u = ?";
+      const rows = await pool.query(query,[process.env.TABLA_USUARIOS, email, password]);
+      return rows;
+  } catch(error){
+      console.log(error);
+      throw error;
+  }
+}
+
 async function updateUsuario(obj, id) {
   try {
     let query = "UPDATE ?? SET ? WHERE id_u = ?";
@@ -35,6 +46,7 @@ async function deleteUsuario(id) {
 
 module.exports = {
     getUsuario,
+    getUsuarioPorEmail,
     updateUsuario,
     deleteUsuario
 }
