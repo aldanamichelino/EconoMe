@@ -13,9 +13,9 @@ var indexRouter = require('./controllers/index');
 var usuariosRouter = require('./controllers/usuarios');
 const registro = require('./controllers/registro');
 const auth = require('./controllers/auth');
-const ahorros = require('./controllers/ahorros')
-;
+const ahorros = require('./controllers/ahorros');
 const cuentaProyecto = require('./controllers/cuentaProyecto');
+const ingresos = require('./controllers/ingresos');
 
 
 
@@ -37,6 +37,7 @@ app.use('/registro', registro);
 app.use('/auth', auth);
 app.use('/ahorros', ahorros);
 app.use('/cuentaProyecto', cuentaProyecto);
+app.use('/ingresos', ingresos)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
