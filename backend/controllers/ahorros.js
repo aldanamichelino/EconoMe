@@ -26,7 +26,7 @@ router.post('/:id_u', async(req, res, next)=>{
 
 router.get('/:id_u', async(req, res, next) => {
     try {
-        let ahorrosUsuario = await ahorrosModel.getAhorrosUsuario(req.id);
+        let ahorrosUsuario = await ahorrosModel.getAhorrosUsuario(req.params.id_u);
         res.json({status : 'ok', id : req.id, ahorros : ahorrosUsuario});
 
     } catch (error) {
@@ -34,6 +34,64 @@ router.get('/:id_u', async(req, res, next) => {
         res.status(500).json({status : 'error'})
     }
 })
+
+
+router.get('/:id_u/:id_a', async(req, res, next) => {
+    try {
+        let ahorroUsuario = await ahorrosModel.getAhorroUsuario(req.params.id_u, req.params.id_a);
+        res.json({status : 'ok', id : req.id, ahorro : ahorroUsuario});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({status : 'error'})
+    }
+})
+
+
+router.put('/:id_u/:id_a', async(req, res, next) => {
+
+    try {
+
+        let idUsuario = req.params.id_u;
+        let idAhorro = req.params.id_a;
+
+        let ahorroModificado = {
+            monto_a : req.body.monto
+        }
+
+        let ahorro_update = await ahorrosModel.updateAhorro(ahorroModificado, idUsuario, idAhorro);
+
+        if(ahorro_update != undefined){
+            res.json({status : 'ok', data : ahorro_update});
+        }
+    } catch(error) {
+        console.log(error)
+        res.status(500).json({status : 'error'})
+    }
+})
+
+
+router.delete('/:id_u/:id_a', async(req, res, next) => {
+
+    try {
+
+        let idUsuario = req.params.id_u;
+        let idAhorro = req.params.id_a;
+
+        let ahorro_delete = await ahorrosModel.deleteAhorro(idUsuario, idAhorro);
+
+        if(ahorro_delete){
+            res.json({status : 'ok', message : 'ahorro eliminado'});
+        }
+ 
+    } catch(error){
+        console.log(error)
+        res.status(500).json({status : 'error'});
+    }
+})
+
+
+
 
 module.exports = router;
 
