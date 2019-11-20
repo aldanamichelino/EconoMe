@@ -25,12 +25,12 @@ async function sendEmail(obj) {
 
     console.log('Message sent: %s', info.messageId);
     return info.messageId;
-    } 
+    }
 
     catch(error){
         throw(error);
     }
-} 
+}
 
 module.exports = {
     sendEmail
