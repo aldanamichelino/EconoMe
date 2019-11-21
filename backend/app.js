@@ -9,6 +9,7 @@ const cors = require('cors');
 
 dotenv.config();
 
+const fs = require('fs');
 var indexRouter = require('./controllers/index');
 var usuariosRouter = require('./controllers/usuarios');
 const registro = require('./controllers/registro');
@@ -16,6 +17,7 @@ const auth = require('./controllers/auth');
 const ahorros = require('./controllers/ahorros');
 const cuentaProyecto = require('./controllers/cuentaProyecto');
 const ingresos = require('./controllers/ingresos');
+const categorias = require('./controllers/categorias');
 
 
 
@@ -31,13 +33,38 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//RUTAS SEGURAS
+
+secured = (req,res,next) => {
+  try {
+  
+    let token = req.headers.authorization;
+
+    
+    
+    token = token.replace('Bearer ','');
+    const publicKey = fs.readFileSync('./keys/public.pem');
+
+    let decoded = jwt.verify(token, publicKey);
+  
+    req.id = decoded.id;
+    req.nombre = decoded.nombre;
+    next();
+  } catch (error) {
+    res.status(401).json({status : 'unauthorized'});
+  }
+}
+
+//RUTAS
+
 app.use('/', indexRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/registro', registro);
 app.use('/auth', auth);
-app.use('/ahorros', ahorros);
+app.use('/ahorros', secured, ahorros);
 app.use('/cuentaProyecto', cuentaProyecto);
-app.use('/ingresos', ingresos)
+app.use('/ingresos', secured, ingresos);
+app.use('/categorias', categorias);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

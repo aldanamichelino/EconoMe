@@ -37,8 +37,12 @@ async function nuevoIngreso(obj) {
 
 async function updateIngreso(obj, id) {
   try {
-      let query = "UPDATE ?? SET ? WHERE id_u = ?";
+      
+      let query = "UPDATE ?? SET ? WHERE id_i = ?";
       const rows = await pool.query(query, [process.env.TABLA_INGRESOS, obj, id]);
+
+      console.log(rows);
+      
       return rows;
   } catch (error) {
       console.log(error);
@@ -49,5 +53,6 @@ async function updateIngreso(obj, id) {
 module.exports = {
     getIngresos,
     nuevoIngreso,
-    getIngresosPorCat
+    getIngresosPorCat,
+    updateIngreso
 }

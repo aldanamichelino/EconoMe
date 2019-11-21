@@ -1,9 +1,25 @@
 const utils = require('util');
 const pool = require('../bd');
 
-async function insertarAhorro(ahorro){
+async function getIdCP(id) {
+    let query = "SELECT id_cp FROM ?? WHERE id_u_cp = ?";
+    const rows = await pool.query(query, [process.env.TABLA_CUENTA_PROYECTO, id]);
+
+    return rows;
+}
+
+async function insertarAhorro(monto, id_u){
     try {
-        let query = "insert into ?? set ?";
+        
+        let id_cp = await getIdCP(id_u);
+
+        let ahorro = {
+            monto_a : monto,
+            id_u_a : id_u,
+            id_cp_a : id_cp[0].id_cp
+        }
+     
+        let query = "INSERT INTO ?? SET ?"
         const rows = await pool.query(query, [process.env.TABLA_AHORROS, ahorro]);
         return rows.insertId;
 

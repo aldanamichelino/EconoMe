@@ -29,6 +29,8 @@ router.post('/', async(req,res,next) => {
             id_usuario_i : req.id,
             id_categoria_i : req.body.categoria,
         }
+        console.log(req);
+        
 
         let ingreso_ok = await ingresosModel.nuevoIngreso(obj);
 
@@ -44,22 +46,23 @@ router.post('/', async(req,res,next) => {
 
 router.put('/', async(req, res, next) => {
   try {
-    let id = req.body.id;
+    let id= req.body.id_i
 
     let obj = {
-      monto_i : monto_req.body.monto,
+      monto_i : req.body.monto,
       id_categoria_i : req.body.categoria
     }
 
     let mod_ingreso_ok = await ingresosModel.updateIngreso(obj,id);
 
     console.log(mod_ingreso_ok);
+
     if(mod_ingreso_ok != undefined) {
-        res.json({status: 'ok', id: ingreso_ok})
-    }
+        res.json({status: 'ok', id: id})
+    } 
 
   } catch (e) {
-    console.log(error);
+    console.log(e);
     res.status(500).json({status:"error"});
   }
 })
