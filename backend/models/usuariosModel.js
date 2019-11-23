@@ -13,8 +13,20 @@ async function getUsuario(id) {
 
 async function getUsuarioPorEmail(email, password){
   try{
-      let query = "select id_u, nombre_u, cuenta_confirmada_u from ?? where email_u = ? and password_u = ?";
+      let query = "select id_u, nombre_u, cuenta_confirmada_u, permisos_u from ?? where email_u = ? and password_u = ?";
       const rows = await pool.query(query,[process.env.TABLA_USUARIOS, email, password]);
+      return rows;
+  } catch(error){
+      console.log(error);
+      throw error;
+  }
+}
+
+
+async function getUsuarios(){
+  try{
+      let query = "select id_u, nombre_u, apellido_u, email_u, permisos_u from ??";
+      const rows = await pool.query(query,process.env.TABLA_USUARIOS);
       return rows;
   } catch(error){
       console.log(error);
@@ -33,6 +45,19 @@ async function updateUsuario(obj, id) {
   }
 }
 
+async function updateRole(role, id) {
+  try {
+    let query = "UPDATE ?? SET permisos_u = ? WHERE id_u = ?";
+    const rows = await pool.query(query, [process.env.TABLA_USUARIOS, role, id]);
+
+    return rows;
+  } catch (error) {
+    console.log(error);
+    
+    throw error;
+  }
+}
+
 async function deleteUsuario(id) {
   try {
     let query = "DELETE FROM ?? WHERE id_u = ?"
@@ -47,6 +72,8 @@ async function deleteUsuario(id) {
 module.exports = {
     getUsuario,
     getUsuarioPorEmail,
+    getUsuarios,
     updateUsuario,
+    updateRole,
     deleteUsuario
 }
