@@ -38,9 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 secured = (req,res,next) => {
   try {
   
-    let token = req.headers.authorization;
-
-    
+    let token = req.headers.authorization;    
     
     token = token.replace('Bearer ','');
     const publicKey = fs.readFileSync('./keys/public.pem');

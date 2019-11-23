@@ -21,9 +21,10 @@ router.post('/', async(req, res, next)=>{
 });
 
 
-router.get('/:id_u', async(req, res, next) => {
+router.get('/', async(req, res, next) => {
     try {
-        let ahorrosUsuario = await ahorrosModel.getAhorrosUsuario(req.params.id_u);
+
+        let ahorrosUsuario = await ahorrosModel.getAhorrosUsuario(req.id);
         res.json({status : 'ok', id : req.id, ahorros : ahorrosUsuario});
 
     } catch (error) {
@@ -33,9 +34,9 @@ router.get('/:id_u', async(req, res, next) => {
 })
 
 
-router.get('/:id_u/:id_a', async(req, res, next) => {
+router.get('/', async(req, res, next) => {
     try {
-        let ahorroUsuario = await ahorrosModel.getAhorroUsuario(req.params.id_u, req.params.id_a);
+        let ahorroUsuario = await ahorrosModel.getAhorrosDetalladosUsuario(req.id);
         res.json({status : 'ok', id : req.id, ahorro : ahorroUsuario});
 
     } catch (error) {
@@ -68,12 +69,9 @@ router.put('/:id_u/:id_a', async(req, res, next) => {
 })
 
 
-router.delete('/:id_u/:id_a', async(req, res, next) => {
+router.delete('/', async(req, res, next) => {
 
     try {
-
-        let idUsuario = req.params.id_u;
-        let idAhorro = req.params.id_a;
 
         let ahorro_delete = await ahorrosModel.deleteAhorro(idUsuario, idAhorro);
 
