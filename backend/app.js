@@ -17,8 +17,8 @@ const auth = require('./controllers/auth');
 const ahorros = require('./controllers/ahorros');
 const cuentaProyecto = require('./controllers/cuentaProyecto');
 const ingresos = require('./controllers/ingresos');
-const categorias = require('./controllers/categorias');
-
+const categorias = require('./controllers/admin/categorias');
+const usuariosAdmin = require('./controllers/admin/usuarios');
 
 
 var app = express();
@@ -38,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 secured = (req,res,next) => {
   try {
   
+    let token = req.headers.authorization;
     let token = req.headers.authorization;    
     
     token = token.replace('Bearer ','');
@@ -53,16 +54,46 @@ secured = (req,res,next) => {
   }
 }
 
+securedAdmin = (req,res,next) => {
+  try {
+  
+    let token = req.headers.authorization;
+
+    token = token.replace('Bearer ','');
+    const publicKey = fs.readFileSync('./keys/public.pem');
+
+    let decoded = jwt.verify(token, publicKey);
+  
+    req.id = decoded.id;
+    req.nombre = decoded.nombre;
+    req.role = decoded.role;
+
+    if(req.role == "admin") {
+      next();
+    } else {
+      res.status(401).json({status : 'unauthorized'});
+    }
+
+  } catch (error) {
+    res.status(401).json({status : 'unauthorized'});
+  }
+}
+
 //RUTAS
 
 app.use('/', indexRouter);
-app.use('/usuarios', usuariosRouter);
 app.use('/registro', registro);
 app.use('/auth', auth);
+
+//RUTAS PROTEGIDAS
+app.use('/usuarios', secured, usuariosRouter);
 app.use('/ahorros', secured, ahorros);
 app.use('/cuentaProyecto', secured, cuentaProyecto);
 app.use('/ingresos', secured, ingresos);
-app.use('/categorias', categorias);
+
+//RUTAS DE ADMINISTRADORA
+app.use('/categorias', securedAdmin, categorias);
+app.use('/panelUsuarios', securedAdmin, usuariosAdmin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

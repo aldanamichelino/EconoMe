@@ -41,8 +41,6 @@ async function updateIngreso(obj, id) {
       let query = "UPDATE ?? SET ? WHERE id_i = ?";
       const rows = await pool.query(query, [process.env.TABLA_INGRESOS, obj, id]);
 
-      console.log(rows);
-      
       return rows;
   } catch (error) {
       console.log(error);
@@ -50,9 +48,22 @@ async function updateIngreso(obj, id) {
   }
 }
 
+async function deleteIngreso(id) {
+    try {
+        let query = "DELETE FROM ?? WHERE id_i = ?";
+        const rows = await pool.query(query, [process.env.TABLA_INGRESOS, id]);
+
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
     getIngresos,
     nuevoIngreso,
     getIngresosPorCat,
-    updateIngreso
+    updateIngreso,
+    deleteIngreso
 }

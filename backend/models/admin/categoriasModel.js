@@ -1,4 +1,4 @@
-const pool = require('../bd');
+const pool = require('../../bd');
 
 async function getCategoriasIngresos() {
     try {
@@ -13,7 +13,7 @@ async function getCategoriasIngresos() {
 
 async function getCategoriasGastos() {
     try {
-        let query = "SELECT categoria_i FROM ?? ";
+        let query = "SELECT categoria_g FROM ?? ";
         const rows = await pool.query(query, [process.env.TABLA_CATEGORIAS_GASTOS]);
         return rows;
     } catch (error) {
@@ -44,11 +44,37 @@ async function nuevaCategoriaG(cat) {
     }
 }
 
+async function updateCategoriaI(cat, id) {
+    try {
+        
+        let query = "UPDATE ?? SET categoria_i = ? WHERE id_ci = ?";
+        const rows = await pool.query(query, [process.env.TABLA_CATEGORIAS_INGRESOS, cat, id]);
+  
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+  }
+
+async function updateCategoriaG(cat, id) {
+    try {
+        let query = "UPDATE ?? SET categoria_g = ? WHERE id_cg = ?";
+        const rows = await pool.query(query, [process.env.TABLA_CATEGORIAS_GASTOS, cat, id]);
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 
 
 module.exports = {
     getCategoriasIngresos,
     getCategoriasGastos,
     nuevaCategoriaI,
-    nuevaCategoriaG
+    nuevaCategoriaG,
+    updateCategoriaI,
+    updateCategoriaG
 }
