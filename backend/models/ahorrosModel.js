@@ -41,10 +41,10 @@ async function getAhorrosUsuario(id_u){
 }
 
 
-async function getAhorroUsuario(id_u, id_a){
+async function getAhorrosDetalladosUsuario(id_u){
     try {
-        let query = "select monto_a from ?? where id_u_a = ? and id_a = ?";
-        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u, id_a]);
+        let query = "select monto_a from ?? where id_u_a = ?";
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -79,6 +79,6 @@ async function deleteAhorro(id_u, id_a){
 module.exports = {
     insertarAhorro,
     getAhorrosUsuario,
-    getAhorroUsuario,
+    getAhorrosDetalladosUsuario,
     updateAhorro,
     deleteAhorro }

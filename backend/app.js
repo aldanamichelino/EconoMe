@@ -38,9 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 secured = (req,res,next) => {
   try {
   
-    let token = req.headers.authorization;
-
-    
+    let token = req.headers.authorization;    
     
     token = token.replace('Bearer ','');
     const publicKey = fs.readFileSync('./keys/public.pem');
@@ -62,7 +60,7 @@ app.use('/usuarios', usuariosRouter);
 app.use('/registro', registro);
 app.use('/auth', auth);
 app.use('/ahorros', secured, ahorros);
-app.use('/cuentaProyecto', cuentaProyecto);
+app.use('/cuentaProyecto', secured, cuentaProyecto);
 app.use('/ingresos', secured, ingresos);
 app.use('/categorias', categorias);
 
