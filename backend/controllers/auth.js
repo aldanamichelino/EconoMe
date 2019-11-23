@@ -16,7 +16,10 @@ router.post('/login', async(req, res, next) => {
             }
 
             const privateKey = fs.readFileSync('./keys/private.pem', 'utf-8');
-            const payload = {id : usuario[0].id_u, nombre : usuario[0].nombre_u};
+            const payload = {id : usuario[0].id_u, nombre : usuario[0].nombre_u, role: usuario[0].permisos_u};
+
+            console.log(payload);
+            
             const usuario_ok = {nombre : usuario[0].nombre_u};
             const token = jwt.sign(payload, privateKey, signOptions);
             res.json({usuario_ok, JWT : token});

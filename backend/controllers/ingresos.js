@@ -46,7 +46,7 @@ router.post('/', async(req,res,next) => {
 
 router.put('/', async(req, res, next) => {
   try {
-    let id= req.body.id_i
+    let id= req.body.id_i;
 
     let obj = {
       monto_i : req.body.monto,
@@ -54,8 +54,6 @@ router.put('/', async(req, res, next) => {
     }
 
     let mod_ingreso_ok = await ingresosModel.updateIngreso(obj,id);
-
-    console.log(mod_ingreso_ok);
 
     if(mod_ingreso_ok != undefined) {
         res.json({status: 'ok', id: id})
@@ -65,6 +63,21 @@ router.put('/', async(req, res, next) => {
     console.log(e);
     res.status(500).json({status:"error"});
   }
+});
+
+router.delete('/', async(req, res, next) => {
+    try {
+        let id = req.body.id_i;
+
+        let delete_ingreso_ok = await ingresosModel.deleteIngreso(id);
+
+        if(delete_ingreso_ok != undefined) {
+            res.json({status: 'ok', id: id});
+        } 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({status:"error"});
+    }
 })
 
 module.exports = router;
