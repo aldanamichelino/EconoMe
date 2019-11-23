@@ -25,7 +25,10 @@ router.get('/', async(req, res, next) => {
     try {
 
         let ahorrosUsuario = await ahorrosModel.getAhorrosUsuario(req.id);
-        res.json({status : 'ok', id : req.id, ahorros : ahorrosUsuario});
+
+        let ahorrosDetalladosUsuario = await ahorrosModel.getAhorrosDetalladosUsuario(req.id);
+
+        res.json({status : 'ok', ahorros_total : ahorrosUsuario, ahorrosdetallados : ahorrosDetalladosUsuario});
 
     } catch (error) {
         console.log(error);
