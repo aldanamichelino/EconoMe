@@ -13,5 +13,6 @@ async function insertarCuentaProyecto(cuentaProyecto){
     }
 }
 
+
 module.exports = {
     insertarCuentaProyecto }
