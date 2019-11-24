@@ -38,15 +38,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 secured = (req,res,next) => {
   try {
-  
 
-    let token = req.headers.authorization;    
-    
+    let token = req.headers.authorization;
+
     token = token.replace('Bearer ','');
     const publicKey = fs.readFileSync('./keys/public.pem');
 
     let decoded = jwt.verify(token, publicKey);
-  
+
     req.id = decoded.id;
     req.nombre = decoded.nombre;
     next();
@@ -57,14 +56,14 @@ secured = (req,res,next) => {
 
 securedAdmin = (req,res,next) => {
   try {
-  
+
     let token = req.headers.authorization;
 
     token = token.replace('Bearer ','');
     const publicKey = fs.readFileSync('./keys/public.pem');
 
     let decoded = jwt.verify(token, publicKey);
-  
+
     req.id = decoded.id;
     req.nombre = decoded.nombre;
     req.role = decoded.role;
