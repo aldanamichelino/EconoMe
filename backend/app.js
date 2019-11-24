@@ -19,6 +19,7 @@ const cuentaProyecto = require('./controllers/cuentaProyecto');
 const ingresos = require('./controllers/ingresos');
 const categorias = require('./controllers/admin/categorias');
 const usuariosAdmin = require('./controllers/admin/usuarios');
+const gastos = require('./controllers/gastos');
 
 
 var app = express();
@@ -38,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 secured = (req,res,next) => {
   try {
   
-    let token = req.headers.authorization;
+
     let token = req.headers.authorization;    
     
     token = token.replace('Bearer ','');
@@ -90,6 +91,7 @@ app.use('/usuarios', secured, usuariosRouter);
 app.use('/ahorros', secured, ahorros);
 app.use('/cuentaProyecto', secured, cuentaProyecto);
 app.use('/ingresos', secured, ingresos);
+app.use('/gastos', secured, gastos);
 
 //RUTAS DE ADMINISTRADORA
 app.use('/categorias', securedAdmin, categorias);
