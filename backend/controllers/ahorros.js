@@ -28,7 +28,22 @@ router.get('/', async(req, res, next) => {
 
         let ahorrosDetalladosUsuario = await ahorrosModel.getAhorrosDetalladosUsuario(req.id);
 
-        res.json({status : 'ok', ahorros_total : ahorrosUsuario, ahorrosdetallados : ahorrosDetalladosUsuario});
+        res.json({status : 'ok', ahorros_total : ahorrosUsuario, ahorros_detallados : ahorrosDetalladosUsuario});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({status : 'error'})
+    }
+})
+
+router.get('/gastos', async(req, res, next) => {
+    try {
+
+        let gastosAhorrosUsuario = await ahorrosModel.getAhorrosGastosUsuario(req.id);
+
+        let gastosAhorrosDetalladosUsuario = await ahorrosModel.getAhorrosGastosDetalladosUsuario(req.id);
+
+        res.json({status : 'ok', gastos_total : gastosAhorrosUsuario, gastos_detallados : gastosAhorrosDetalladosUsuario});
 
     } catch (error) {
         console.log(error);
@@ -37,30 +52,17 @@ router.get('/', async(req, res, next) => {
 })
 
 
-router.get('/', async(req, res, next) => {
-    try {
-        let ahorroUsuario = await ahorrosModel.getAhorrosDetalladosUsuario(req.id);
-        res.json({status : 'ok', id : req.id, ahorro : ahorroUsuario});
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({status : 'error'})
-    }
-})
-
-
-router.put('/:id_u/:id_a', async(req, res, next) => {
+router.put('/:id_a', async(req, res, next) => {
 
     try {
 
-        let idUsuario = req.params.id_u;
         let idAhorro = req.params.id_a;
 
         let ahorroModificado = {
             monto_a : req.body.monto
         }
 
-        let ahorro_update = await ahorrosModel.updateAhorro(ahorroModificado, idUsuario, idAhorro);
+        let ahorro_update = await ahorrosModel.updateAhorro(ahorroModificado, idAhorro);
 
         if(ahorro_update != undefined){
             res.json({status : 'ok', data : ahorro_update});
@@ -72,11 +74,13 @@ router.put('/:id_u/:id_a', async(req, res, next) => {
 })
 
 
-router.delete('/', async(req, res, next) => {
+router.delete('/:id_a', async(req, res, next) => {
 
     try {
 
-        let ahorro_delete = await ahorrosModel.deleteAhorro(idUsuario, idAhorro);
+        let idAhorro = req.params.id_a;
+
+        let ahorro_delete = await ahorrosModel.deleteAhorro(idAhorro);
 
         if(ahorro_delete){
             res.json({status : 'ok', message : 'ahorro eliminado'});

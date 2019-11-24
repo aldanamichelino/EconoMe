@@ -43,7 +43,29 @@ async function getAhorrosUsuario(id_u){
 
 async function getAhorrosDetalladosUsuario(id_u){
     try {
-        let query = "select monto_a from ?? where id_u_a = ?";
+        let query = "select monto_a from ?? where id_u_a = ? and monto_a > 0"
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function getAhorrosGastosUsuario(id_u){
+    try {
+        let query = "select sum(monto_a) from ?? where id_u_a = ? and monto_a < 0"
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function getAhorrosGastosDetalladosUsuario(id_u){
+    try {
+        let query = "select monto_a from ?? where id_u_a = ? and monto_a < 0"
         const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
         return rows;
     } catch (error) {
@@ -53,10 +75,10 @@ async function getAhorrosDetalladosUsuario(id_u){
 }
 
 
-async function updateAhorro(ahorroModificado, id_u, id_a){
+async function updateAhorro(ahorroModificado, id_a){
     try {
-        let query = "update ?? set ? where id_u_a = ? and id_a = ?";
-        const rows = await pool.query(query, ([process.env.TABLA_AHORROS, ahorroModificado, id_u, id_a]));
+        let query = "update ?? set ? where id_a = ?";
+        const rows = await pool.query(query, ([process.env.TABLA_AHORROS, ahorroModificado, id_a]));
         return rows;
     } catch(error){
         console.log(error);
@@ -64,10 +86,10 @@ async function updateAhorro(ahorroModificado, id_u, id_a){
     }
 }
 
-async function deleteAhorro(id_u, id_a){
+async function deleteAhorro(id_a){
     try {
-        let query = "delete from ?? where id_u_a = ? and id_a = ?";
-        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u, id_a]);
+        let query = "delete from ?? where id_a = ?";
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_a]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -80,5 +102,7 @@ module.exports = {
     insertarAhorro,
     getAhorrosUsuario,
     getAhorrosDetalladosUsuario,
+    getAhorrosGastosUsuario,
+    getAhorrosGastosDetalladosUsuario,
     updateAhorro,
     deleteAhorro }
