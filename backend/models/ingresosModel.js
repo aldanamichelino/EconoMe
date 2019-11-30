@@ -11,6 +11,18 @@ async function getIngresos(id) {
     }
 }
 
+async function getIngresosMonth(id) {
+    try {
+        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_i = id_ci WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_usuario_i = ?";
+        const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS, id]);
+
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 async function getIngresosPorCat(id, cat) {
     try {
         let query = "SELECT id_i, monto_i, categoria_i FROM ?? JOIN ?? ON id_categoria_i = id_ci WHERE id_usuario_i = ? AND categoria_i = ?";
@@ -37,7 +49,7 @@ async function nuevoIngreso(obj) {
 
 async function updateIngreso(obj, id) {
   try {
-      
+
       let query = "UPDATE ?? SET ? WHERE id_i = ?";
       const rows = await pool.query(query, [process.env.TABLA_INGRESOS, obj, id]);
 
@@ -62,6 +74,7 @@ async function deleteIngreso(id) {
 
 module.exports = {
     getIngresos,
+    getIngresosMonth,
     nuevoIngreso,
     getIngresosPorCat,
     updateIngreso,

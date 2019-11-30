@@ -12,10 +12,30 @@ router.get('/', async(req, res, next) => {
     }
 })
 
-router.get('/:categoria', async(req, res, next) => {
+router.get('/currentmonth', async(req, res, next) => {
     try {
-        let gastos_cat_ok = await gastosModel.getGastosPorCat(req.id, req.params.categoria)
+        let gastos_data = await gastosModel.getGastosMonth(req.id);
+        res.json({status : 'ok' , data : gastos_data});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({status : 'error'});
+    }
+})
+
+router.get('/cat/:categoria', async(req, res, next) => {
+    try {
+        let gastos_cat_ok = await gastosModel.getGastosPorCat(req.id, req.params.categoria);
         res.json({status : 'ok', data : gastos_cat_ok});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({status : 'error'});
+    }
+})
+
+router.get('/vencimientos', async(req, res, next) => {
+    try {
+        let vencimientos_ok = await gastosModel.getVencimientos(req.id);
+        res.json({status: 'ok', data : vencimientos_ok});
     } catch (error) {
         console.log(error);
         res.status(500).json({status : 'error'});
@@ -31,9 +51,11 @@ router.post('/', async(req,res,next) => {
             banco_g : req.body.banco,
             id_u_g : req.id,
             id_categoria_g : req.body.categoria,
+            pagado : req.body.pagado,
+            fecha : req.body.fecha
         }
         console.log(req);
-        
+
 
         let gasto_ok = await gastosModel.nuevoGasto(obj);
 
@@ -57,13 +79,15 @@ router.put('/', async(req, res, next) => {
         vencimiento_g : req.body.vencimiento,
         banco_g : req.body.banco,
         id_categoria_g : req.body.categoria,
+        pagado : req.body.pagado,
+        fecha : req.body.fecha
     }
 
     let mod_gasto_ok = await gastosModel.updateGasto(obj,id);
 
     if(mod_gasto_ok != undefined) {
         res.json({status: 'ok', id: id})
-    } 
+    }
 
   } catch (e) {
     console.log(e);
@@ -79,7 +103,7 @@ router.delete('/', async(req, res, next) => {
 
         if(delete_gasto_ok != undefined) {
             res.json({status: 'ok', id: id});
-        } 
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({status:"error"});

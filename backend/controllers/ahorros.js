@@ -6,10 +6,11 @@ router.post('/', async(req, res, next)=>{
 
     try {
 
-        let monto_a = req.body.monto
+        let monto_a = req.body.monto;
+        let fecha = req.body.fecha;
         let id = req.id;
 
-        let nuevoAhorro_ok = await ahorrosModel.insertarAhorro(monto_a, id);
+        let nuevoAhorro_ok = await ahorrosModel.insertarAhorro(monto_a, id, fecha);
         console.log(nuevoAhorro_ok);
         if(nuevoAhorro_ok != undefined){
             res.json({status: 'ok', id: nuevoAhorro_ok, message: "Ahorro reservado"});
@@ -33,6 +34,16 @@ router.get('/', async(req, res, next) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({status : 'error'})
+    }
+})
+
+router.get('/currentmonth', async(req, res, next) => {
+    try {
+        let ahorro_ok = await ahorrosModel.getAhorrosMonth(req.id);
+        res.json({status : 'ok' , data : ahorro_ok});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({status : 'error'});
     }
 })
 
@@ -85,7 +96,7 @@ router.delete('/:id_a', async(req, res, next) => {
         if(ahorro_delete){
             res.json({status : 'ok', message : 'ahorro eliminado'});
         }
- 
+
     } catch(error){
         console.log(error)
         res.status(500).json({status : 'error'});
@@ -96,4 +107,3 @@ router.delete('/:id_a', async(req, res, next) => {
 
 
 module.exports = router;
-

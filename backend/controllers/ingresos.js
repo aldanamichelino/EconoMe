@@ -12,6 +12,16 @@ router.get('/', async(req, res, next) => {
     }
 })
 
+router.get('/currentmonth', async(req, res, next) => {
+    try {
+        let ingresos_data = await ingresosModel.getIngresosMonth(req.id);
+        res.json({status : 'ok' , data : ingresos_data});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({status : 'error'});
+    }
+})
+
 router.get('/:categoria', async(req, res, next) => {
     try {
         let ingresos_cat_ok = await ingresosModel.getIngresosPorCat(req.id, req.params.categoria)
@@ -28,9 +38,10 @@ router.post('/', async(req,res,next) => {
             monto_i : req.body.monto,
             id_usuario_i : req.id,
             id_categoria_i : req.body.categoria,
+            fecha : req.body.fecha
         }
         console.log(req);
-        
+
 
         let ingreso_ok = await ingresosModel.nuevoIngreso(obj);
 
@@ -50,14 +61,15 @@ router.put('/', async(req, res, next) => {
 
     let obj = {
       monto_i : req.body.monto,
-      id_categoria_i : req.body.categoria
+      id_categoria_i : req.body.categoria,
+      fecha : req.body.fecha
     }
 
     let mod_ingreso_ok = await ingresosModel.updateIngreso(obj,id);
 
     if(mod_ingreso_ok != undefined) {
         res.json({status: 'ok', id: id})
-    } 
+    }
 
   } catch (e) {
     console.log(e);
@@ -73,7 +85,7 @@ router.delete('/', async(req, res, next) => {
 
         if(delete_ingreso_ok != undefined) {
             res.json({status: 'ok', id: id});
-        } 
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({status:"error"});
