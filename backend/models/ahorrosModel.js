@@ -2,23 +2,28 @@ const utils = require('util');
 const pool = require('../bd');
 
 async function getIdCP(id) {
+  try {
     let query = "SELECT id_cp FROM ?? WHERE id_u_cp = ?";
     const rows = await pool.query(query, [process.env.TABLA_CUENTA_PROYECTO, id]);
 
     return rows;
+  } catch (error) {
+    throw error;
+  }
 }
 
-async function insertarAhorro(monto, id_u){
+async function insertarAhorro(monto, id_u, fecha){
     try {
-        
+
         let id_cp = await getIdCP(id_u);
 
         let ahorro = {
             monto_a : monto,
             id_u_a : id_u,
-            id_cp_a : id_cp[0].id_cp
+            id_cp_a : id_cp[0].id_cp,
+            fecha : fecha
         }
-     
+
         let query = "INSERT INTO ?? SET ?"
         const rows = await pool.query(query, [process.env.TABLA_AHORROS, ahorro]);
         return rows.insertId;
@@ -40,10 +45,21 @@ async function getAhorrosUsuario(id_u){
     }
 }
 
+async function getAhorrosMonth(id) {
+    try {
+        let query = "SELECT * FROM ?? WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_a = ?";
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id]);
+
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 
 async function getAhorrosDetalladosUsuario(id_u){
     try {
-        let query = "select monto_a from ?? where id_u_a = ? and monto_a > 0"
+        let query = "select monto_a, fecha from ?? where id_u_a = ? and monto_a > 0"
         const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
         return rows;
     } catch (error) {
@@ -101,6 +117,7 @@ async function deleteAhorro(id_a){
 module.exports = {
     insertarAhorro,
     getAhorrosUsuario,
+    getAhorrosMonth,
     getAhorrosDetalladosUsuario,
     getAhorrosGastosUsuario,
     getAhorrosGastosDetalladosUsuario,
