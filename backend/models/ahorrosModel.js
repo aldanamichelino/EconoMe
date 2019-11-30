@@ -12,13 +12,14 @@ async function getIdCP(id) {
   }
 }
 
-async function insertarAhorro(monto, id_u, fecha){
+async function insertarAhorro(monto, moneda, id_u, fecha){
     try {
 
         let id_cp = await getIdCP(id_u);
 
         let ahorro = {
             monto_a : monto,
+            id_moneda_a : moneda,
             id_u_a : id_u,
             id_cp_a : id_cp[0].id_cp,
             fecha : fecha
@@ -29,15 +30,40 @@ async function insertarAhorro(monto, id_u, fecha){
         return rows.insertId;
 
     } catch (error) {
-        console.log('error al insertar ahorro');
+        console.log(error);
+        
+        throw error;
+    }
+}
+
+async function insertarExtraccion(monto, moneda, id_u, fecha){
+    try {
+
+        let id_cp = await getIdCP(id_u);
+
+        let extraccion = {
+            monto_a : monto,
+            id_moneda_a : moneda,
+            id_u_a : id_u,
+            id_cp_a : id_cp[0].id_cp,
+            fecha : fecha
+        }
+
+        let query = "INSERT INTO ?? SET ?"
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS, extraccion]);
+        return rows.insertId;
+
+    } catch (error) {
+        console.log(error);
         throw error;
     }
 }
 
 async function getAhorrosUsuario(id_u){
     try {
-        let query = "select sum(monto_a) from ?? where id_u_a = ?";
-        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
+        let query = "select sum(monto_a), moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ?";
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS,
+        process.env.TABLA_MONEDA, id_u]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -47,8 +73,9 @@ async function getAhorrosUsuario(id_u){
 
 async function getAhorrosMonth(id) {
     try {
-        let query = "SELECT * FROM ?? WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_a = ?";
-        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id]);
+        let query = "SELECT * FROM ?? JOIN ?? ON id_moneda_a = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_a = ?";
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS,
+        process.env.TABLA_MONEDA, id]);
 
         return rows;
     } catch (error) {
@@ -59,8 +86,9 @@ async function getAhorrosMonth(id) {
 
 async function getAhorrosDetalladosUsuario(id_u){
     try {
-        let query = "select monto_a, fecha from ?? where id_u_a = ? and monto_a > 0"
-        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
+        let query = "select monto_a, fecha, moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? and monto_a > 0"
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS,
+        process.env.TABLA_MONEDA, id_u]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -70,8 +98,9 @@ async function getAhorrosDetalladosUsuario(id_u){
 
 async function getAhorrosGastosUsuario(id_u){
     try {
-        let query = "select sum(monto_a) from ?? where id_u_a = ? and monto_a < 0"
-        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
+        let query = "select sum(monto_a), moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? and monto_a < 0"
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS,
+        process.env.TABLA_MONEDA, id_u]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -81,8 +110,9 @@ async function getAhorrosGastosUsuario(id_u){
 
 async function getAhorrosGastosDetalladosUsuario(id_u){
     try {
-        let query = "select monto_a from ?? where id_u_a = ? and monto_a < 0"
-        const rows = await pool.query(query, [process.env.TABLA_AHORROS, id_u]);
+        let query = "select monto_a, moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? and monto_a < 0"
+        const rows = await pool.query(query, [process.env.TABLA_AHORROS,
+        process.env.TABLA_MONEDA, id_u]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -119,6 +149,7 @@ module.exports = {
     getAhorrosUsuario,
     getAhorrosMonth,
     getAhorrosDetalladosUsuario,
+    insertarExtraccion,
     getAhorrosGastosUsuario,
     getAhorrosGastosDetalladosUsuario,
     updateAhorro,

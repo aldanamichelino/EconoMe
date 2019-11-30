@@ -6,11 +6,12 @@ router.post('/', async(req, res, next)=>{
 
     try {
 
-        let monto_a = req.body.monto;
+        let monto = req.body.monto;
+        let moneda = req.body.moneda;
         let fecha = req.body.fecha;
         let id = req.id;
 
-        let nuevoAhorro_ok = await ahorrosModel.insertarAhorro(monto_a, id, fecha);
+        let nuevoAhorro_ok = await ahorrosModel.insertarAhorro(monto, moneda, id, fecha);
         console.log(nuevoAhorro_ok);
         if(nuevoAhorro_ok != undefined){
             res.json({status: 'ok', id: nuevoAhorro_ok, message: "Ahorro reservado"});
@@ -21,6 +22,25 @@ router.post('/', async(req, res, next)=>{
     }
 });
 
+
+router.post('/extraer', async(req, res, next)=>{
+
+    try {
+
+        let monto = "-"+req.body.monto;
+        let moneda = req.body.moneda;
+        let fecha = req.body.fecha;
+        let id = req.id;
+
+        let nuevaExtraccion_ok = await ahorrosModel.insertarExtraccion(monto, moneda, id, fecha);
+        if(nuevaExtraccion_ok != undefined){
+            res.json({status: 'ok', id: nuevoExtraccion_ok, message: "Extracción realizada"});
+        }
+
+    } catch(error){
+        res.status(500).json({status : 'error', error: error})
+    }
+});
 
 router.get('/', async(req, res, next) => {
     try {

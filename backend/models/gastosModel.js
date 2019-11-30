@@ -2,8 +2,8 @@ const pool = require('../bd');
 
 async function getGastos(id) {
     try {
-        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_g = id_cg WHERE id_u_g = ?";
-        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, id]);
+        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ?";
+        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, process.env.TABLA_MONEDA, id]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -13,8 +13,9 @@ async function getGastos(id) {
 
 async function getGastosMonth(id) {
     try {
-        let query = "SELECT * FROM ?? JOIN ?? WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ?";
-        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, id]);
+        let query = "SELECT * FROM ?? JOIN ?? JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ?";
+        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS,
+        process.env.TABLA_MONEDA, id]);
 
         return rows;
     } catch (error) {
@@ -25,8 +26,9 @@ async function getGastosMonth(id) {
 
 async function getGastosPorCat(id, cat) {
     try {
-        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_g = id_cg WHERE id_u_g = ? AND categoria_g = ?";
-        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, id, cat]);
+        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ? AND id_categoria_g = ?";
+        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS,
+        process.env.TABLA_MONEDA, id, cat]);
 
         console.log(rows);
         return rows;
@@ -39,8 +41,9 @@ async function getGastosPorCat(id, cat) {
 async function getVencimientos(id) {
     try {
 
-        let query = "SELECT * FROM ?? JOIN ?? WHERE vencimiento_g >= CURDATE() AND id_u_g = ? AND pagado = 0 ORDER BY vencimiento_g ASC;";
-        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, id]);
+        let query = "SELECT * FROM ?? JOIN ?? JOIN ?? ON id_moneda_g = id_m WHERE vencimiento_g >= CURDATE() AND id_u_g = ? AND pagado = 0 ORDER BY vencimiento_g ASC";
+        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS,
+        process.env.TABLA_MONEDA, id]);
 
         return rows;
     } catch (error) {
