@@ -46,6 +46,7 @@ router.post('/', async(req,res,next) => {
     try {
         let obj = {
             monto_g : req.body.monto,
+            id_moneda_g : req.body.moneda,
             detalle_g : req.body.detalle,
             vencimiento_g : req.body.vencimiento,
             banco_g : req.body.banco,

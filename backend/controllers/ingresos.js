@@ -36,6 +36,7 @@ router.post('/', async(req,res,next) => {
     try {
         let obj = {
             monto_i : req.body.monto,
+            id_moneda_i : req.body.moneda,
             id_usuario_i : req.id,
             id_categoria_i : req.body.categoria,
             fecha : req.body.fecha
@@ -61,6 +62,7 @@ router.put('/', async(req, res, next) => {
 
     let obj = {
       monto_i : req.body.monto,
+      id_moneda_i : req.body.moneda,
       id_categoria_i : req.body.categoria,
       fecha : req.body.fecha
     }

@@ -2,8 +2,8 @@ const pool = require('../bd');
 
 async function getIngresos(id) {
     try {
-        let query = "SELECT id_i, monto_i, categoria_i FROM ?? JOIN ?? ON id_categoria_i = id_ci WHERE id_usuario_i = ?";
-        const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS, id]);
+        let query = "SELECT id_i, monto_i, moneda, categoria_i FROM ?? JOIN ?? ON id_categoria_i = id_ci JOIN ?? ON id_moneda_i = id_m WHERE id_usuario_i = ?";
+        const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS, process.env.TABLA_MONEDA, id]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -13,8 +13,9 @@ async function getIngresos(id) {
 
 async function getIngresosMonth(id) {
     try {
-        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_i = id_ci WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_usuario_i = ?";
-        const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS, id]);
+        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_i = id_ci JOIN ?? ON id_moneda_i = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_usuario_i = ?";
+        const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS,
+        process.env.TABLA_MONEDA, id]);
 
         return rows;
     } catch (error) {
@@ -25,8 +26,9 @@ async function getIngresosMonth(id) {
 
 async function getIngresosPorCat(id, cat) {
     try {
-        let query = "SELECT id_i, monto_i, categoria_i FROM ?? JOIN ?? ON id_categoria_i = id_ci WHERE id_usuario_i = ? AND categoria_i = ?";
-        const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS, id, cat]);
+        let query = "SELECT id_i, monto_i, moneda, categoria_i FROM ?? JOIN ?? ON id_categoria_i = id_ci JOIN ?? ON id_moneda_i = id_m WHERE id_usuario_i = ? AND id_categoria_i = ?";
+        const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS,
+        process.env.TABLA_MONEDA, id, cat]);
 
         console.log(rows);
         return rows;
