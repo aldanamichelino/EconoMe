@@ -13,7 +13,7 @@ router.post('/', async(req,res,next) => {
             apellido_u : req.body.apellido,
             email_u : req.body.email,
             codigo_email_u : uuid(),
-            password_u : md5(req.body.password_u)
+            password_u : md5(req.body.password)
         }
         
         let objMailConfig = {
