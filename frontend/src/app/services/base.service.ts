@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';//HttpClient es una clase dentro del gran paquete de HttpClientModule
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { throwError } from 'rxjs';
 import { throws } from 'assert';

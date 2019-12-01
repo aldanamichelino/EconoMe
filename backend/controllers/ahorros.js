@@ -38,6 +38,7 @@ router.post('/extraer', async(req, res, next)=>{
         }
 
     } catch(error){
+        console.log(error);
         res.status(500).json({status : 'error', error: error})
     }
 });
