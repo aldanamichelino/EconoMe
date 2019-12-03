@@ -43,7 +43,7 @@ router.get('/:codigo_email_u', async(req, res, next)=>{
         let usuarioConfirmado = await registroModel.confirmarUsuario(codigo);
 
         if(usuarioConfirmado){
-        res.json({status: 'ok', message: 'Usuario confirmado'});
+            res.redirect(process.env.URL+'/login');
         }
 
     } catch(error){
