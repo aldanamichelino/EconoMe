@@ -65,7 +65,7 @@ export class BaseService {
 
   async post(obj) {
     try {
-      console.log(this.url_server + this.endpoint);
+      // console.log(this.url_server + this.endpoint);
       const options : any = this.getHttpOptions;
 
       return this.http.post(this.url_server + this.endpoint, obj, options).toPromise();
