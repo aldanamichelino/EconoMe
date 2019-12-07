@@ -50,6 +50,7 @@ export class UsuariosService extends BaseService{
   async loginUsuario(obj) {
     try {
       this.setEndPoint('/auth/login');
+      
       return this.post(obj);
 
     } catch (error) {
