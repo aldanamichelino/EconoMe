@@ -22,10 +22,11 @@ const ingresos = require('./controllers/ingresos');
 const categorias = require('./controllers/admin/categorias');
 const usuariosAdmin = require('./controllers/admin/usuarios');
 const gastos = require('./controllers/gastos');
-const formulario = require('./models/formulario');
+const formulario = require('./controllers/formulario');
 
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,8 +39,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.post('/formulario', (req, res) => {});
 
 //RUTAS SEGURAS
 

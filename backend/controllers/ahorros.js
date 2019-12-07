@@ -34,7 +34,7 @@ router.post('/extraer', async(req, res, next)=>{
 
         let nuevaExtraccion_ok = await ahorrosModel.insertarExtraccion(monto, moneda, id, fecha);
         if(nuevaExtraccion_ok != undefined){
-            res.json({status: 'ok', id: nuevaExtraccion_ok, message: "Extracción realizada"});
+            res.json({status: 'ok', id: nuevoExtraccion_ok, message: "Extracción realizada"});
         }
 
     } catch(error){
