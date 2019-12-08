@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
-import { GastosComponent } from './components/gastos/gastos.component';
+import { GastosComponent } from './components/partials/gastos/gastos.component';
+import { HomeComponent } from './components/home/home.component';
+import { IngresosComponent } from './components/partials/ingresos/ingresos.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { GastosComponent } from './components/gastos/gastos.component';
     NavbarComponent,
     LoginComponent,
     GastosComponent,
+    HomeComponent,
+    IngresosComponent,
   ],
   imports: [
     BrowserModule,

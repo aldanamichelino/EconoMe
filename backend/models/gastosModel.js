@@ -11,6 +11,17 @@ async function getGastos(id) {
     }
 }
 
+async function getMoneda(){
+    try {
+        let query = "select moneda from moneda";
+        const rows = await pool.query(query, [process.env.TABLA_MONEDA]);
+        return rows;
+    } catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
 async function getGastosMonth(id) {
     try {
         let query = "SELECT * FROM ?? JOIN ?? JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ?";
@@ -90,6 +101,7 @@ async function deleteGasto(id) {
 
 module.exports = {
     getGastos,
+    getMoneda,
     nuevoGasto,
     getGastosMonth,
     getGastosPorCat,

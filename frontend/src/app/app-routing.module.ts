@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
-import { GastosComponent } from './components/gastos/gastos.component';
+import { GastosComponent } from './components/partials/gastos/gastos.component';
 
 
 const routes: Routes = [
