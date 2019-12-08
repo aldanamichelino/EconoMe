@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { GastosComponent } from './components/partials/gastos/gastos.component';
 import { HomeComponent } from './components/home/home.component';
 import { IngresosComponent } from './components/partials/ingresos/ingresos.component';
+import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingreso.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { IngresosComponent } from './components/partials/ingresos/ingresos.compo
     GastosComponent,
     HomeComponent,
     IngresosComponent,
+    ModalIngresoComponent,
   ],
   imports: [
     BrowserModule,

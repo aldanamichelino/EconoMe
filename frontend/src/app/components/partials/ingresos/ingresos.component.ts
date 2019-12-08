@@ -9,16 +9,29 @@ import { Router } from '@angular/router';
 })
 export class IngresosComponent implements OnInit {
 
-  ingresos : any [] = [];
+  ingresosMes : any [] = [];
+  suma : number = 0;
 
   constructor(private ingresosServices : IngresosService, private router : Router) { }
 
   async ngOnInit() {
     //Aca cargamos los ingresos como peticion a nuestro backend
 
-    let respuesta_server : any = await this.ingresosServices.getIngresos() //get base service
+    let respuesta_server : any = await this.ingresosServices.getIngresosDelMes() //get base service
     //respuesta_server devuelve un array de objetos
+
+    if(respuesta_server.status == 'ok') {
+      this.ingresosMes = respuesta_server.data;
+      this.suma = respuesta_server.suma[0];
+    }
   }
 
-
+  async getIngresosTotales () {
+    let respuesta_server : any = await this.ingresosServices.getIngresos();
+    
+    if(respuesta_server.status == 'ok') {
+      this.ingresosMes = respuesta_server.data;
+      console.log(this.ingresosMes);
+    }
+  }
 }

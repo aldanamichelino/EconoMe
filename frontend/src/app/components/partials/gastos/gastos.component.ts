@@ -34,7 +34,6 @@ export class GastosComponent implements OnInit {
       'detalle_g' : new FormControl('', [Validators.required]),
       'vencimiento_g' : new FormControl('', [Validators.required, Validators.pattern(/^\d{2}[.-/]\d{2}[.-/]\d{4}$/)]),
       'banco_g' : new FormControl('', [Validators.required]),
-      'id_categoria' : new FormControl('', [Validators.required]),
       'pagado' : new FormControl('', [Validators.required]),
       'fecha' : new FormControl('', [Validators.required, Validators.pattern(/^\d{2}[.-/]\d{2}[.-/]\d{4}$/)])
     })
