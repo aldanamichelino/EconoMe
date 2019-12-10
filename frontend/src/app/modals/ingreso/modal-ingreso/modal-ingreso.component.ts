@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalManager } from 'ngb-modal';
 
 @Component({
   selector: 'app-modal-ingreso',
@@ -8,19 +7,8 @@ import { ModalManager } from 'ngb-modal';
 })
 export class ModalIngresoComponent implements OnInit {
 
-  private modalRef;
-  operacion : boolean = false;
-  constructor(private modalService : ModalManager) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-  open(modal){
-    this.modalRef = this.modalService.open(modal)
-  }
-
-  accion() {
-    this.operacion = true;
-
-    // this.operacion = false;
   }
 }

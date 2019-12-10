@@ -9,7 +9,7 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { IngresosComponent } from './components/partials/ingresos/ingresos.component';
-import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingreso.component';
+import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingreso.component';//capaz queda
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingr
     LoginComponent,
     HomeComponent,
     IngresosComponent,
-    ModalIngresoComponent,
+    ModalIngresoComponent,//vuela, capaz no, fijarse para reutilizar
   ],
   imports: [
     BrowserModule,

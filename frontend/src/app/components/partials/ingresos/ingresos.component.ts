@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IngresosService } from 'src/app/services/ingresos.service';
 import { Router } from '@angular/router';
+import {ModalManager} from "ngb-modal"
 
 @Component({
   selector: 'app-ingresos',
@@ -12,7 +13,7 @@ export class IngresosComponent implements OnInit {
   ingresosMes : any [] = [];
   suma : number = 0;
 
-  constructor(private ingresosServices : IngresosService, private router : Router) { }
+  constructor(private ingresosServices : IngresosService, private router : Router, private modalService : ModalManager) { }
 
   async ngOnInit() {
     //Aca cargamos los ingresos como peticion a nuestro backend
