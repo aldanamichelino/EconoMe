@@ -6,6 +6,8 @@ var logger = require('morgan');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
 
 dotenv.config();
 
@@ -20,6 +22,7 @@ const ingresos = require('./controllers/ingresos');
 const categorias = require('./controllers/admin/categorias');
 const usuariosAdmin = require('./controllers/admin/usuarios');
 const gastos = require('./controllers/gastos');
+const formulario = require('./controllers/formulario');
 
 
 var app = express();
@@ -33,6 +36,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //RUTAS SEGURAS
@@ -85,6 +89,7 @@ securedAdmin = (req,res,next) => {
 app.use('/', indexRouter);
 app.use('/registro', registro);
 app.use('/auth', auth);
+app.use('/formulario', formulario);
 
 //RUTAS PROTEGIDAS
 app.use('/usuarios', secured, usuariosRouter);

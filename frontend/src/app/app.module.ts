@@ -6,7 +6,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
+import { GastosComponent } from './components/partials/gastos/gastos.component';
 import { HomeComponent } from './components/home/home.component';
 import { IngresosComponent } from './components/partials/ingresos/ingresos.component';
 import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingreso.component';//capaz queda
@@ -15,7 +17,9 @@ import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingr
   declarations: [
     AppComponent,
     RegistroComponent,
+    NavbarComponent,
     LoginComponent,
+    GastosComponent,
     HomeComponent,
     IngresosComponent,
     ModalIngresoComponent,//vuela, capaz no, fijarse para reutilizar

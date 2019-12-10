@@ -20,7 +20,7 @@ router.put('/', async(req, res, next) => {
     let obj = {
       nombre_u : req.body.nombre_u,
       apellido_u : req.body.apellido_u,
-      password_u : md5(req.body.password_u)
+      password_u : md5(req.body.password)
     };
 
     let usuario_update = await usuariosModel.updateUsuario(obj, id);
