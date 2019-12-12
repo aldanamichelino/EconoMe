@@ -27,7 +27,7 @@ export class GastosService extends BaseService {
 
   async getMoneda(){
     try {
-      this.setEndPoint('/gastos');
+      this.setEndPoint('/gastos/monedas');
       return this.get();
     } catch(error){
       console.log(error);

@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const gastosModel = require('../models/gastosModel.js');
 
+router.get('/monedas', async(req,res,next)=>{
+    try {
+        let monedas = await gastosModel.getMoneda();
+        res.json({status : 'ok', data : monedas});
+    } catch(error){
+        console.log(error);
+        res.status(500).json({status : 'error'})
+    }
+})
+
 router.get('/', async(req, res, next) => {
     try {
         let gastos_data = await gastosModel.getGastos(req.id);

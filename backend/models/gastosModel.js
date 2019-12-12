@@ -15,6 +15,7 @@ async function getMoneda(){
     try {
         let query = "select moneda from moneda";
         const rows = await pool.query(query, [process.env.TABLA_MONEDA]);
+        console.log("imprimo"+rows)
         return rows;
     } catch(error){
         console.log(error);

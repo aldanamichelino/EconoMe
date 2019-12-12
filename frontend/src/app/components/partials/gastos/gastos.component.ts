@@ -27,6 +27,8 @@ export class GastosComponent implements OnInit {
 
     this.traerGastos();
 
+    this.getMoneda();
+
     this.form = new FormGroup({
       'monto_g' : new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
       //cada input, y le ponemos si arranca vacio y si tiene validadores, se pueden enviar muchos validators pero si o si dentro del array. Matchea con el formControlName del input
