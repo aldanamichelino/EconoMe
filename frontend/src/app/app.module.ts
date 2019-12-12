@@ -11,7 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { GastosComponent } from './components/partials/gastos/gastos.component';
 import { HomeComponent } from './components/home/home.component';
 import { IngresosComponent } from './components/partials/ingresos/ingresos.component';
-import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingreso.component';
+import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingreso.component';//capaz queda
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingr
     GastosComponent,
     HomeComponent,
     IngresosComponent,
-    ModalIngresoComponent,
+    ModalIngresoComponent,//vuela, capaz no, fijarse para reutilizar
   ],
   imports: [
     BrowserModule,
