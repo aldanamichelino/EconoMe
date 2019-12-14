@@ -2,7 +2,7 @@ const pool = require('../bd');
 
 async function getGastos(id) {
     try {
-        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ?";
+        let query = "SELECT sum(monto_g) as sumaMonto FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ?";
         const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, process.env.TABLA_MONEDA, id]);
         return rows;
     } catch (error) {
@@ -13,9 +13,19 @@ async function getGastos(id) {
 
 async function getMoneda(){
     try {
-        let query = "select moneda from moneda";
+        let query = "select id_m, moneda from moneda";
         const rows = await pool.query(query, [process.env.TABLA_MONEDA]);
-        console.log("imprimo"+rows)
+        return rows;
+    } catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
+async function getCategoriaGastos(){
+    try {
+        let query = "select id_cg, categoria_cg from categorias_gastos";
+        const rows = await pool.query(query, [process.env.TABLA_CATEGORIAS_GASTOS]);
         return rows;
     } catch(error){
         console.log(error);
@@ -106,6 +116,7 @@ module.exports = {
     nuevoGasto,
     getGastosMonth,
     getGastosPorCat,
+    getCategoriaGastos,
     getVencimientos,
     updateGasto,
     deleteGasto

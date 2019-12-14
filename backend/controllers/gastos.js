@@ -12,6 +12,16 @@ router.get('/monedas', async(req,res,next)=>{
     }
 })
 
+router.get('/categoria', async(req,res,next)=>{
+    try {
+        let categorias = await gastosModel.getCategoriaGastos();
+        res.json({status : 'ok', data : categorias});
+    } catch(error){
+        console.log(error);
+        res.status(500).json({status : 'error'})
+    }
+})
+
 router.get('/', async(req, res, next) => {
     try {
         let gastos_data = await gastosModel.getGastos(req.id);

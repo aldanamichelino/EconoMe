@@ -17,6 +17,7 @@ export class GastosComponent implements OnInit {
   gastos : any [] = [];
   form : FormGroup;
   moneda : any [] = [];
+  categoria : any [] = [];
 
   constructor(private gastosService : GastosService) { }
 
@@ -29,23 +30,28 @@ export class GastosComponent implements OnInit {
 
     this.getMoneda();
 
+    this.getCategoriaGastos();
+
     this.form = new FormGroup({
-      'monto_g' : new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
+      'monto' : new FormControl('', [Validators.required]),
       //cada input, y le ponemos si arranca vacio y si tiene validadores, se pueden enviar muchos validators pero si o si dentro del array. Matchea con el formControlName del input
-      'id_moneda_g' : new FormControl('', [Validators.required]),
-      'detalle_g' : new FormControl('', [Validators.required]),
-      'vencimiento_g' : new FormControl('', [Validators.required, Validators.pattern(/^\d{2}[.-/]\d{2}[.-/]\d{4}$/)]),
-      'banco_g' : new FormControl('', [Validators.required]),
+      'moneda' : new FormControl('', [Validators.required]),
+      'detalle' : new FormControl('', [Validators.required]),
+      'vencimiento' : new FormControl('', [Validators.required]),
+      'banco' : new FormControl('', [Validators.required]),
+      'categoria' : new FormControl('', [Validators.required]),
       'pagado' : new FormControl('', [Validators.required]),
-      'fecha' : new FormControl('', [Validators.required, Validators.pattern(/^\d{2}[.-/]\d{2}[.-/]\d{4}$/)])
+      'fecha' : new FormControl('', [Validators.required])
     })
+
 
 }
 
 async traerGastos() {
   try {
     let gastos_ok : any = await this.gastosService.getGastos();
-    this.gastos = gastos_ok.data;
+    this.gastos = gastos_ok.data[0];
+    console.log(this.gastos);
   } catch(error){
     console.log(error);
   }
@@ -61,9 +67,39 @@ async traerGastos() {
   }
   }
 
+  async getCategoriaGastos(){
+    try {
+    let categoriaGastos : any = await this.gastosService.getCategoriaGastos();
+    this.categoria = categoriaGastos.data;
+    console.log(this.categoria);
+  } catch(error){
+    console.log(error);
+  }
+  }
+
+  elegirMoneda(id) {
+    console.log(id)
+    this.form.value.moneda = id;
+    console.log(this.form.value)
+  }
+
+  elegirCategoriaGastos(id) {
+    console.log(id)
+    this.form.value.categoria = id;
+    console.log(this.form.value)
+  }
+
+  pagado(id){
+    console.log(id)
+    this.form.value.pagado = id;
+  }
+  
+
   async nuevoGasto(){
+    
     let nuevo_gasto : any = await this.gastosService.nuevoGasto(this.form.value);
     console.log(this.form.value);
+    console.log(nuevo_gasto);
     
     if(nuevo_gasto != null){
       await Swal.fire({

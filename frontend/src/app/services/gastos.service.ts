@@ -33,5 +33,14 @@ export class GastosService extends BaseService {
       console.log(error);
     }
   }
+
+  async getCategoriaGastos(){
+    try {
+      this.setEndPoint('/gastos/categoria');
+      return this.get();
+    } catch(error){
+      console.log(error);
+    }
+  }
   
 }
