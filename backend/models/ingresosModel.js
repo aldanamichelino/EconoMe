@@ -13,9 +13,13 @@ async function getIngresos(id) {
 
 async function getIngresosMonth(id) {
     try {
-        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_i = id_ci JOIN ?? ON id_moneda_i = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_usuario_i = ?";
+        // DATE_FORMAT hace que la fecha se muestre recortada y en el formato dd-mm-aaaa
+        let query = "SELECT date_format(fecha, '%d-%m-%Y') as fecha, monto_i as monto, moneda, categoria_i as categoria FROM ?? JOIN ?? ON id_categoria_i = id_ci JOIN ?? ON id_moneda_i = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_usuario_i = ?";
         const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS,
-        process.env.TABLA_MONEDA, id]);
+        process.env.TABLA_MONEDA, id]);   
+        
+        console.log(rows);
+        
 
         return rows;
     } catch (error) {

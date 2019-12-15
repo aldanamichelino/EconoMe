@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { GastosComponent } from './components/partials/gastos/gastos.component';
 import { HomeComponent } from './components/home/home.component';
 import { IngresosComponent } from './components/partials/ingresos/ingresos.component';
-import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingreso.component';//capaz queda
+import { ModalComponentComponent } from './components/modal-component/modal-component.component';
 
 @NgModule({
   declarations: [
@@ -21,15 +22,16 @@ import { ModalIngresoComponent } from './modals/ingreso/modal-ingreso/modal-ingr
     LoginComponent,
     GastosComponent,
     HomeComponent,
-    IngresosComponent,
-    ModalIngresoComponent,//vuela, capaz no, fijarse para reutilizar
+    IngresosComponent,  
+    ModalComponentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

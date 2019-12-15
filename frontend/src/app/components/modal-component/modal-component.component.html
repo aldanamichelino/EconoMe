@@ -1,0 +1,32 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Detalle de {{nombreComponente}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      
+      <div class="modal-body">
+        <table class="table table-responsive table-bordered">
+          <thead >
+            <tr>
+              <th  *ngFor="let titulo of componente[2]">{{titulo}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- el tr recorre el array con objetos (cada transaccion del usuario) -->
+            <tr *ngFor="let fila of valores"> 
+              <!-- el td recorre los arrays con los valores e imprime cada uno -->
+              <td *ngFor="let columna of fila">{{columna}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>      
+    </ng-template>
+  
+  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Ver detalle</button>
+  
+  <hr>
+  
+  <pre>{{closeResult}}</pre>
