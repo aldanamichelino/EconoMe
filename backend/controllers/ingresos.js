@@ -25,15 +25,27 @@ router.get('/currentmonth', async(req, res, next) => {
     }
 })
 
-router.get('/:categoria', async(req, res, next) => {
+router.get('/categorias', async(req, res, next) => {
     try {
-        let ingresos_cat_ok = await ingresosModel.getIngresosPorCat(req.id, req.params.categoria)
+        let ingresos_cat_ok = await ingresosModel.getCategoriasIngresos();
         res.json({status : 'ok', data : ingresos_cat_ok});
     } catch (error) {
         console.log(error);
         res.status(500).json({status : 'error'});
     }
 })
+
+router.get('/:categoria', async(req, res, next) => {
+    try {
+        let ingresos_cat_ok = await ingresosModel.getIngresosPorCat(req.id, req.params.categoria);
+        res.json({status : 'ok', data : ingresos_cat_ok});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({status : 'error'});
+    }
+})
+
+
 
 router.post('/', async(req,res,next) => {
     try {

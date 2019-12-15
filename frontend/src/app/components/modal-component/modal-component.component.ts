@@ -13,6 +13,7 @@ export class ModalComponentComponent {
   public nombreComponente : string;
   public ingresosMes; // NO SE UTILIZA YA QUE NO SE APLICAN LOS DATOS
   public valores: any [] = [];
+  public categorias: any [] = [];
 
   constructor(private modalService: NgbModal) {}
 
@@ -34,5 +35,7 @@ export class ModalComponentComponent {
           //OBJETC.VALUES(INGRESO) es una forma de transformar el objeto en un array de los values, sin las keys.
           }          
       }
+
+
     }    
   }
