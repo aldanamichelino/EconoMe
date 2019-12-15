@@ -2,7 +2,18 @@ const pool = require('../bd');
 
 async function getGastos(id) {
     try {
-        let query = "SELECT * FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ?";
+        let query = "SELECT sum(monto_g) as sumaMonto FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ? and id_moneda_g = 1";
+        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, process.env.TABLA_MONEDA, id]);
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function getGastosDolares(id) {
+    try {
+        let query = "SELECT sum(monto_g) as sumaMontoDolares FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ? and id_moneda_g = 2";
         const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, process.env.TABLA_MONEDA, id]);
         return rows;
     } catch (error) {
@@ -13,8 +24,19 @@ async function getGastos(id) {
 
 async function getMoneda(){
     try {
-        let query = "select moneda from moneda";
+        let query = "select * from moneda";
         const rows = await pool.query(query, [process.env.TABLA_MONEDA]);
+        return rows;
+    } catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
+async function getCategoriaGastos(){
+    try {
+        let query = "select id_cg, categoria_g from categorias_gastos";
+        const rows = await pool.query(query, [process.env.TABLA_CATEGORIAS_GASTOS]);
         return rows;
     } catch(error){
         console.log(error);
@@ -101,10 +123,12 @@ async function deleteGasto(id) {
 
 module.exports = {
     getGastos,
+    getGastosDolares,
     getMoneda,
     nuevoGasto,
     getGastosMonth,
     getGastosPorCat,
+    getCategoriaGastos,
     getVencimientos,
     updateGasto,
     deleteGasto
