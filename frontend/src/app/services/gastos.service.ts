@@ -16,6 +16,16 @@ export class GastosService extends BaseService {
     }
   }
 
+  async getGastosDolares(){
+    try {
+      this.setEndPoint('/gastos/dolares');
+      return this.get();
+
+    } catch(error){
+      console.log(error);
+    }
+  }
+
   async nuevoGasto(obj){
     try {
       this.setEndPoint('/gastos');

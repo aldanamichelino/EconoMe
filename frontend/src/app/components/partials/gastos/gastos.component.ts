@@ -15,6 +15,7 @@ export class GastosComponent implements OnInit {
 
   nombre : string = '';
   gastos : any [] = [];
+  gastosDolares : any [] = [];
   form : FormGroup;
   moneda : any [] = [];
   categoria : any [] = [];
@@ -27,6 +28,8 @@ export class GastosComponent implements OnInit {
     }
 
     this.traerGastos();
+
+    this.traerGastosDolares();
 
     this.getMoneda();
 
@@ -52,6 +55,16 @@ async traerGastos() {
     let gastos_ok : any = await this.gastosService.getGastos();
     this.gastos = gastos_ok.data[0];
     console.log(this.gastos);
+  } catch(error){
+    console.log(error);
+  }
+}
+
+async traerGastosDolares() {
+  try {
+    let gastosDolares_ok : any = await this.gastosService.getGastosDolares();
+    this.gastosDolares = gastosDolares_ok.data[0];
+    console.log(this.gastosDolares);
   } catch(error){
     console.log(error);
   }
@@ -99,7 +112,6 @@ async traerGastos() {
     
     let nuevo_gasto : any = await this.gastosService.nuevoGasto(this.form.value);
     console.log(this.form.value);
-    console.log(nuevo_gasto);
     
     if(nuevo_gasto != null){
       await Swal.fire({

@@ -1,16 +1,22 @@
 <app-navbar></app-navbar>
 
-<h2>Gastos de {{nombre}}</h2>
+<h1>Gastos de {{nombre}}</h1>
 
-<table border='1'>
+<table>
     <tr>
-      <h2>{{gastos.sumaMonto}}</h2>
+      <h2>Gastos en pesos</h2>
+      <h3>$ {{gastos.sumaMonto}}</h3>
+    </tr>
+
+    <tr>
+      <h2>Gastos en dólares</h2>
+      <h3>U$S {{gastosDolares.sumaMontoDolares}}</h3>
     </tr>
 </table>
 
 <hr>
 
-<h2>Ingresar un nuevo gasto</h2>
+<h1>Ingresar un nuevo gasto</h1>
 
 <div class="container">
   <div class="row">
@@ -26,19 +32,19 @@
               <div class="form-group">
                 <span>Moneda</span>
                 <br>
-                <select class="custom-select" #m (change)="elegirMoneda(m.value)">
+                <select class="custom-select" #m (change)="elegirMoneda(m.value)" formControlName='moneda'>
                   <option value=""  disabled>Elija la moneda</option>
                   <option *ngFor="let item of moneda" value="{{item.id_m}}">{{item.moneda}}</option>
-               </select>
+             </select>
 
               </div>
 
               <div class="form-group">
                 <span>Categoría</span>
                 <br>
-                <select class="custom-select" #c (change)="elegirCategoriaGastos(c.value)">
+                <select class="custom-select" #c (change)="elegirCategoriaGastos(c.value)" formControlName='categoria'>
                   <option value="" disabled>Elija la categoría</option>
-                  <option *ngFor="let item of categoria" value="{{item.id_cg}}">{{item.categoria_cg}}</option>
+                  <option *ngFor="let item of categoria" value="{{item.id_cg}}">{{item.categoria_g}}</option>
                </select>
 
               </div>
@@ -46,7 +52,7 @@
               <div class="form-group">
                 <span>Pagado</span>
                 <br>
-                <select class="custom-select" #p (change)="pagado(p.value)">
+                <select class="custom-select" #p (change)="pagado(p.value)" formControlName='pagado'>
                   <option value="" disabled>¿Está pago el gasto?</option>
                   <option value="1">Sí</option>
                   <option value="0">No</option>
@@ -82,7 +88,7 @@
 
               </div>
              
-              <button type="submit" class="btn btn-success btn-block">Agregar gasto</button>
+              <button type="submit" [disabled]="form.invalid" class="btn btn-success btn-block">Agregar gasto</button>
 
               <ng-template #sinError>
                   <span></span>
