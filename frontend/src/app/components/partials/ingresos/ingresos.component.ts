@@ -12,6 +12,8 @@ export class IngresosComponent implements OnInit {
 
   ingresosMes : any [] = [];
   suma : number = 0;
+  nombreComponente : string = "Ingresos";
+  titulos : any [] = [];
 
   constructor(private ingresosServices : IngresosService, private router : Router, private modalService : ModalManager) { }
 
@@ -21,10 +23,12 @@ export class IngresosComponent implements OnInit {
     let respuesta_server : any = await this.ingresosServices.getIngresosDelMes() //get base service
     //respuesta_server devuelve un array de objetos
 
-    if(respuesta_server.status == 'ok') {
+    if(respuesta_server.status == 'ok' && respuesta_server != 'undefined') {
       this.ingresosMes = respuesta_server.data;
       this.suma = respuesta_server.suma[0];
-    }
+
+      this.titulos = Object.keys(this.ingresosMes[0]);      
+    }   
   }
 
   async getIngresosTotales () {

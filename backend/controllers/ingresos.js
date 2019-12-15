@@ -15,7 +15,7 @@ router.get('/', async(req, res, next) => {
 router.get('/currentmonth', async(req, res, next) => {
     try {
         let ingresos_data = await ingresosModel.getIngresosMonth(req.id);
-        let suma_ingresos = await ingresosModel.getSumaIngresosMonth(req.id);
+        let suma_ingresos = await ingresosModel.getSumaIngresosMonth(req.id);      
         
         res.json({status : 'ok' , data : ingresos_data, suma : suma_ingresos});
 
