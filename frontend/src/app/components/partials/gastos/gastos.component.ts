@@ -75,9 +75,9 @@ async traerGastosDolares() {
     let moneda : any = await this.gastosService.getMoneda();
     this.moneda = moneda.data;
     console.log(this.moneda);
-  } catch(error){
-    console.log(error);
-  }
+    } catch(error){
+      console.log(error);
+     }
   }
 
   async getCategoriaGastos(){

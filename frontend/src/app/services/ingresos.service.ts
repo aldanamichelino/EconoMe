@@ -39,6 +39,17 @@ export class IngresosService extends BaseService{
     }
   }
 
+  async getCategorias() {
+    try {
+      this.setEndPoint('/ingresos/categorias');
+
+      return this.get();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async postIngreso(obj) {
     try {
       this.setEndPoint('/ingresos');
@@ -61,6 +72,8 @@ export class IngresosService extends BaseService{
     }
   }
 
+  
+
   // async deleteIngreso(id_i) {
   //   try {
   //     this.setEndPoint('/ingresos');
@@ -72,16 +85,6 @@ export class IngresosService extends BaseService{
   //   }
   // }
 
-
-
-  async getProducto(id) {
-    try {
-      this.setEndPoint('/productos/1/'+id);
-      return this.get();  
-    } catch (error) {
-      
-    }
-  }
   
 }
 

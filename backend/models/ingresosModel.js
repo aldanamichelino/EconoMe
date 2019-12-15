@@ -55,6 +55,19 @@ async function getIngresosPorCat(id, cat) {
     }
 }
 
+async function getCategoriasIngresos() {
+    try {
+        let query = "SELECT categoria_i FROM ??";
+        const rows = await pool.query(query, [process.env.TABLA_CATEGORIAS_INGRESOS]);
+
+        console.log(rows);
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 async function nuevoIngreso(obj) {
     try {
         let query = "INSERT INTO ?? SET ?";
@@ -97,6 +110,7 @@ module.exports = {
     getSumaIngresosMonth,
     nuevoIngreso,
     getIngresosPorCat,
+    getCategoriasIngresos,
     updateIngreso,
     deleteIngreso
 }

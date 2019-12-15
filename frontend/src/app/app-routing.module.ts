@@ -5,13 +5,10 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
 import { GastosComponent } from './components/partials/gastos/gastos.component';
 import { HomeComponent } from './components/home/home.component';
+import { IngresoComponent } from './components/agregar/ingreso/ingreso.component';
 
 
 const routes: Routes = [
-  {
-    path : 'navbar',
-    component : NavbarComponent
-  },
   {
     path : 'registro',
     component : RegistroComponent
@@ -27,6 +24,10 @@ const routes: Routes = [
   {
     path : 'home',
     component : HomeComponent
+  },
+  {
+    path : 'nuevo-ingreso',
+    component : IngresoComponent
   },
   {
     path : '**',
