@@ -27,13 +27,9 @@ async function getSumaGastosMonth(id) {
 async function getGastosMonth(id) {
     try {
         // DATE_FORMAT hace que la fecha se muestre recortada y en el formato dd-mm-aaaa
-        let query = "SELECT date_format(fecha, '%d-%m-%Y') as fecha, monto_g as monto, moneda, categoria_g as categoria FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ?";
+        let query = "SELECT date_format(fecha, '%d-%m-%Y') as fecha, monto_g as monto, moneda, categoria_g as categoria, date_format(vencimiento_g, '%d-%m-%Y') as vencimiento, banco_g as entidad, pagado FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ?";
         const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS,
-        process.env.TABLA_MONEDA, id]);   
-        
-        console.log(rows);
-        
-
+        process.env.TABLA_MONEDA, id]);
         return rows;
     } catch (error) {
         console.log(error);
@@ -63,18 +59,18 @@ async function getCategoriaGastos(){
     }
 }
 
-async function getGastosMonth(id) {
-    try {
-        let query = "SELECT * FROM ?? JOIN ?? JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ?";
-        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS,
-        process.env.TABLA_MONEDA, id]);
+// async function getGastosPorMes(id) {
+//     try {
+//         let query = "SELECT * FROM ?? JOIN ?? JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ?";
+//         const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS,
+//         process.env.TABLA_MONEDA, id]);
 
-        return rows;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-}
+//         return rows;
+//     } catch (error) {
+//         console.log(error);
+//         throw error;
+//     }
+// }
 
 async function getGastosPorCat(id, cat) {
     try {

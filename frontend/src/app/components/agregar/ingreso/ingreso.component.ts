@@ -41,15 +41,15 @@ export class IngresoComponent implements OnInit {
 
 }
 
-async getMoneda(){
-  try {
-  let moneda : any = await this.gastosService.getMoneda();
-  this.moneda = moneda.data;
-  console.log(this.moneda);
-  } catch(error){
-    console.log(error);
-   }
-}
+// async getMoneda(){
+//   try {
+//   let moneda : any = await this.ingresosService.getMoneda();
+//   this.moneda = moneda.data;
+//   console.log(this.moneda);
+//   } catch(error){
+//     console.log(error);
+//    }
+// }
 
 
   async getCategoriaIngresos(){

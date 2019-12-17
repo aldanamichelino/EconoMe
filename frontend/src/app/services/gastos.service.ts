@@ -6,26 +6,6 @@ import { BaseService } from './base.service';
 })
 export class GastosService extends BaseService {
 
-  async getGastos(){
-    try {
-      this.setEndPoint('/gastos');
-      return this.get();
-
-    } catch(error){
-      console.log(error);
-    }
-  }
-
-  async getSumaGastosMonth(){
-    try {
-      this.setEndPoint('/gastos');
-      return this.get();
-
-    } catch(error){
-      console.log(error);
-    }
-  }
-
   async getGastosMonth(){
     try {
       this.setEndPoint('/gastos/currentmonth');
@@ -36,28 +16,11 @@ export class GastosService extends BaseService {
     }
   }
 
-  async nuevoGasto(obj){
+  async getGastos(){
     try {
       this.setEndPoint('/gastos');
-      return this.post(obj);
-    } catch(error){
-      console.log(error);
-    }
-  }
-
-  async getMoneda(){
-    try {
-      this.setEndPoint('/gastos/monedas');
       return this.get();
-    } catch(error){
-      console.log(error);
-    }
-  }
 
-  async getCategoriaGastos(){
-    try {
-      this.setEndPoint('/gastos/categoria');
-      return this.get();
     } catch(error){
       console.log(error);
     }

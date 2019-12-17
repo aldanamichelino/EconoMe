@@ -45,7 +45,9 @@ router.get('/dolares', async(req, res, next) => {
 router.get('/currentmonth', async(req, res, next) => {
     try {
         let gastos_data = await gastosModel.getGastosMonth(req.id);
-        res.json({status : 'ok' , data : gastos_data});
+        let suma_gastos = await gastosModel.getSumaGastosMonth(req.id);
+        res.json({status : 'ok' , data : gastos_data, suma : suma_gastos});
+        console.log(gastos_data);
     } catch (error) {
         console.log(error);
         res.status(500).json({status : 'error'});
