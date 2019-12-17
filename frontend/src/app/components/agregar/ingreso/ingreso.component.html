@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
       <div class="col-8">
-          <form [formGroup] = "form" (ngSubmit)="postIngreso()">
+          <form [formGroup] = "form" (ngSubmit)="nuevoIngreso()">
               <div class="form-group">
                 <span>Monto</span>
                   <input type="number" class="form-control" name="monto" placeholder="monto" formControlName="monto">
@@ -44,7 +44,9 @@
                   <span></span>
               </ng-template>
           </form>
-      </div>
-  </div>
+
+        </div>
+    </div>
 </div>
 
+<div class="backArrow" (click)="alHome()"><i class="fas fa-arrow-circle-left"></i></div>

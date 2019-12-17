@@ -57,7 +57,7 @@ async function getIngresosPorCat(id, cat) {
 
 async function getCategoriasIngresos() {
     try {
-        let query = "SELECT categoria_i FROM ??";
+        let query = "SELECT * FROM ??";
         const rows = await pool.query(query, [process.env.TABLA_CATEGORIAS_INGRESOS]);
 
         console.log(rows);

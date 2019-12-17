@@ -1,5 +1,10 @@
 <h2>Ingresos</h2>
 
-<p>{{suma.simbolo}} {{suma.monto}}</p>
+<p>{{sumaPesos.simbolo}} {{sumaPesos.monto}}</p>
+<p>{{sumaDolares.simbolo}} {{sumaDolares.monto}}</p>
 
-<app-modal-component [componente]="[nombreComponente, ingresosMes, titulos]"></app-modal-component>
+<div class="simbols">
+    <app-modal-component class="boton-home" [componente]="[nombreComponente, ingresosMes, titulos]"></app-modal-component>
+    <button (click)="agregarIngreso()" class="boton-home btn btn-lg btn-outline-primary"><i class="fas fa-plus"></i></button>
+</div>
+
