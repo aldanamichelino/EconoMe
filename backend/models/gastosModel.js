@@ -2,7 +2,7 @@ const pool = require('../bd');
 
 async function getGastos(id) {
     try {
-        let query = "SELECT sum(monto_g) as sumaMonto FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ? and id_moneda_g = 1";
+        let query = "SELECT sum(monto_g) as sumaMonto FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ?";
         const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, process.env.TABLA_MONEDA, id]);
         return rows;
     } catch (error) {
@@ -11,10 +11,29 @@ async function getGastos(id) {
     }
 }
 
-async function getGastosDolares(id) {
+async function getSumaGastosMonth(id) {
     try {
-        let query = "SELECT sum(monto_g) as sumaMontoDolares FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ? and id_moneda_g = 2";
-        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, process.env.TABLA_MONEDA, id]);
+        let query = "SELECT SUM(monto_g) as monto, simbolo FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ? GROUP BY simbolo";
+        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS,
+        process.env.TABLA_MONEDA, id]);
+
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function getGastosMonth(id) {
+    try {
+        // DATE_FORMAT hace que la fecha se muestre recortada y en el formato dd-mm-aaaa
+        let query = "SELECT date_format(fecha, '%d-%m-%Y') as fecha, monto_g as monto, moneda, categoria_g as categoria FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ?";
+        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS,
+        process.env.TABLA_MONEDA, id]);   
+        
+        console.log(rows);
+        
+
         return rows;
     } catch (error) {
         console.log(error);
@@ -123,7 +142,8 @@ async function deleteGasto(id) {
 
 module.exports = {
     getGastos,
-    getGastosDolares,
+    getGastosMonth,
+    getSumaGastosMonth,
     getMoneda,
     nuevoGasto,
     getGastosMonth,

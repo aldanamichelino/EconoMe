@@ -3,7 +3,7 @@ import { GastosService } from 'src/app/services/gastos.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-
+import {ModalManager} from "ngb-modal";
 
 @Component({
   selector: 'app-gastos',
@@ -13,23 +13,33 @@ import { Router } from '@angular/router';
 
 export class GastosComponent implements OnInit {
 
+  gastosMes : any [] = [];
+  suma : number = 0;
+  nombreComponente : string = "Gastos";
+  titulos : any [] = [];
   nombre : string = '';
   gastos : any [] = [];
-  gastosDolares : any [] = [];
   form : FormGroup;
   moneda : any [] = [];
   categoria : any [] = [];
 
-  constructor(private gastosService : GastosService) { }
+  constructor(private gastosService : GastosService, private router : Router, private modalService : ModalManager) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     if(localStorage.getItem('usuario') != null) {
       this.nombre = localStorage.getItem('nombre');
     }
 
-    this.traerGastos();
+    let respuesta_server : any = await this.gastosService.getGastosMonth();
+    console.log(respuesta_server);
 
-    this.traerGastosDolares();
+    if(respuesta_server.status == 'ok' && respuesta_server != 'undefined') {
+      this.gastosMes = respuesta_server.data;
+      this.suma = respuesta_server.suma[0];
+
+      this.titulos = Object.keys(this.gastosMes[0]);
+      console.log(this.gastosMes[0]);    
+    }   
 
     this.getMoneda();
 
@@ -50,25 +60,15 @@ export class GastosComponent implements OnInit {
 
 }
 
-async traerGastos() {
-  try {
-    let gastos_ok : any = await this.gastosService.getGastos();
-    this.gastos = gastos_ok.data[0];
-    console.log(this.gastos);
-  } catch(error){
-    console.log(error);
+async getSumaGastosMonth() {
+  let respuesta_server : any = await this.gastosService.getGastos();
+  
+  if(respuesta_server.status == 'ok') {
+    this.gastosMes = respuesta_server.data;
+    console.log(this.gastosMes);
   }
 }
 
-async traerGastosDolares() {
-  try {
-    let gastosDolares_ok : any = await this.gastosService.getGastosDolares();
-    this.gastosDolares = gastosDolares_ok.data[0];
-    console.log(this.gastosDolares);
-  } catch(error){
-    console.log(error);
-  }
-}
 
   async getMoneda(){
     try {

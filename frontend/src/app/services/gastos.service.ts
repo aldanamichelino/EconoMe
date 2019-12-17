@@ -16,9 +16,19 @@ export class GastosService extends BaseService {
     }
   }
 
-  async getGastosDolares(){
+  async getSumaGastosMonth(){
     try {
-      this.setEndPoint('/gastos/dolares');
+      this.setEndPoint('/gastos');
+      return this.get();
+
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+  async getGastosMonth(){
+    try {
+      this.setEndPoint('/gastos/currentmonth');
       return this.get();
 
     } catch(error){
