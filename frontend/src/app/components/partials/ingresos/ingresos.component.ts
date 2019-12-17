@@ -11,32 +11,44 @@ import {ModalManager} from "ngb-modal"
 export class IngresosComponent implements OnInit {
 
   ingresosMes : any [] = [];
-  suma : number = 0;
+  sumaPesos : number = 0;
+  sumaDolares : number = 0;
   nombreComponente : string = "Ingresos";
   titulos : any [] = [];
 
-  constructor(private ingresosServices : IngresosService, private router : Router, private modalService : ModalManager) { }
+  constructor(private ingresosService : IngresosService, private router : Router, private modalService : ModalManager) { }
 
   async ngOnInit() {
     //Aca cargamos los ingresos como peticion a nuestro backend
 
-    let respuesta_server : any = await this.ingresosServices.getIngresosDelMes() //get base service
+    let respuesta_server : any = await this.ingresosService.getIngresosDelMes() //get base service
     //respuesta_server devuelve un array de objetos
 
-    if(respuesta_server.status == 'ok' && respuesta_server != 'undefined') {
+    if(respuesta_server.status == 'ok' && respuesta_server.data != 'undefined') {
       this.ingresosMes = respuesta_server.data;
-      this.suma = respuesta_server.suma[0];
+
+      if(respuesta_server.suma[0]) {
+        this.sumaPesos = respuesta_server.suma[0];
+      }
+
+      if(respuesta_server.suma[1]) {
+        this.sumaDolares = respuesta_server.suma[1];
+      }
 
       this.titulos = Object.keys(this.ingresosMes[0]);      
     }   
   }
 
   async getIngresosTotales () {
-    let respuesta_server : any = await this.ingresosServices.getIngresos();
+    let respuesta_server : any = await this.ingresosService.getIngresos();
     
     if(respuesta_server.status == 'ok') {
       this.ingresosMes = respuesta_server.data;
       console.log(this.ingresosMes);
     }
+  }
+
+  agregarIngreso() {
+    this.router.navigate(['/nuevo-ingreso']);
   }
 }

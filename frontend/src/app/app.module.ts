@@ -14,6 +14,8 @@ import { HomeComponent } from './components/home/home.component';
 import { IngresosComponent } from './components/partials/ingresos/ingresos.component';
 import { ModalComponentComponent } from './components/modal-component/modal-component.component';
 import { IngresoComponent } from './components/agregar/ingreso/ingreso.component';
+import { HistorialComponent } from './components/historial/historial.component';
+import { IngresosHistorialComponent } from './components/historial/ingresos-historial/ingresos-historial.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { IngresoComponent } from './components/agregar/ingreso/ingreso.component
     HomeComponent,
     IngresosComponent,  
     ModalComponentComponent, 
-    IngresoComponent
+    IngresoComponent,
+    HistorialComponent, 
+    IngresosHistorialComponent
   ],
   imports: [
     BrowserModule,

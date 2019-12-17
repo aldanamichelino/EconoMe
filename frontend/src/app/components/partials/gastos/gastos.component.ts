@@ -40,7 +40,7 @@ export class GastosComponent implements OnInit {
       //cada input, y le ponemos si arranca vacio y si tiene validadores, se pueden enviar muchos validators pero si o si dentro del array. Matchea con el formControlName del input
       'moneda' : new FormControl('', [Validators.required]),
       'detalle' : new FormControl('', [Validators.required]),
-      'vencimiento' : new FormControl('', [Validators.required]),
+      'vencimiento' : new FormControl(''),
       'banco' : new FormControl('', [Validators.required]),
       'categoria' : new FormControl('', [Validators.required]),
       'pagado' : new FormControl('', [Validators.required]),

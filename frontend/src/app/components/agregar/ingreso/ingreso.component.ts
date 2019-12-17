@@ -20,7 +20,7 @@ export class IngresoComponent implements OnInit {
   moneda : any [] = [];
   categorias : any [] = [];
 
-  constructor(private ingresosService : IngresosService, private gastosService : GastosService) { }
+  constructor(private ingresosService : IngresosService, private gastosService : GastosService, private router: Router) { }
 
   ngOnInit() {
     // if(localStorage.getItem('usuario') != null) {
@@ -68,10 +68,9 @@ async getMoneda(){
     console.log(this.form.value)
   }
 
-  elegirCategoriaIngresos(id) {
-    console.log(id)
+  elegirCategoriaIngresos(id) {    
     this.form.value.categoria = id;
-    console.log(this.form.value.categoria)
+    console.log(this.form.value)
   }
 
   async nuevoIngreso(){
@@ -83,7 +82,7 @@ async getMoneda(){
       await Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Nuevo gasto agregado',
+        title: 'Nuevo ingreso agregado',
         showConfirmButton: false,
         timer: 1500
     });
@@ -98,5 +97,9 @@ async getMoneda(){
           text: 'Hubo un error'
         });
       }
+  }
+
+  alHome() {
+    this.router.navigate(['/home'])
   }
 }

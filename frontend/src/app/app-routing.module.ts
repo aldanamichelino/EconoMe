@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { GastosComponent } from './components/partials/gastos/gastos.component';
 import { HomeComponent } from './components/home/home.component';
 import { IngresoComponent } from './components/agregar/ingreso/ingreso.component';
+import { HistorialComponent } from './components/historial/historial.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path : 'nuevo-ingreso',
     component : IngresoComponent
+  },
+  {
+    path : 'historial',
+    component : HistorialComponent
   },
   {
     path : '**',
