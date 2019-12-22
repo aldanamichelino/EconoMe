@@ -9,6 +9,7 @@ import { IngresoComponent } from './components/agregar/ingreso/ingreso.component
 import { GastoComponent } from './components/agregar/gasto/gasto.component';
 import { HistorialComponent } from './components/historial/historial.component';
 import { AhorrosComponent } from './components/partials/ahorros/ahorros.component';
+import { AhorroComponent } from './components/agregar/ahorro/ahorro.component';
 
 
 const routes: Routes = [
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path : 'ahorros',
     component : AhorrosComponent
+  },
+  {
+    path : 'nuevo-ahorro',
+    component : AhorroComponent
   },
   {
     path : '**',

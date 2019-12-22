@@ -14,6 +14,7 @@ export class AhorroComponent implements OnInit {
   ahorros : any [] = [];
   form : FormGroup;
   moneda : any [] = [];
+  categoria : any [] = [];
 
   constructor(private ahorrosService : AhorrosService, private router: Router) { }
 
@@ -21,19 +22,60 @@ export class AhorroComponent implements OnInit {
 
     this.getMoneda();
 
-    this.getCategoriaGastos();
-
     this.form = new FormGroup({
       'monto' : new FormControl('', [Validators.required]),
       //cada input, y le ponemos si arranca vacio y si tiene validadores, se pueden enviar muchos validators pero si o si dentro del array. Matchea con el formControlName del input
+      'cuentaProyecto' : new FormControl(),
       'moneda' : new FormControl('', [Validators.required]),
-      'detalle' : new FormControl('', [Validators.required]),
-      'vencimiento' : new FormControl('', [Validators.required]),
-      'banco' : new FormControl('', [Validators.required]),
-      'categoria' : new FormControl('', [Validators.required]),
-      'pagado' : new FormControl('', [Validators.required]),
-      'fecha' : new FormControl('', [Validators.required])
+      'fecha' : new FormControl('', [Validators.required]),
     })
   }
+
+  async getMoneda(){
+    try {
+    let moneda : any = await this.ahorrosService.getMoneda();
+    this.moneda = moneda.data;
+    console.log(this.moneda);
+    } catch(error){
+      console.log(error);
+     }
+  }
+
+  elegirMoneda(id) {
+    console.log(id)
+    this.form.value.moneda = id;
+    console.log(this.form.value)
+  }
+
+  async nuevoAhorro(){
+    
+    let nuevo_ahorro : any = await this.ahorrosService.insertarAhorro(this.form.value);
+    console.log(this.form.value);
+    
+    if(nuevo_ahorro != null){
+      await Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Nuevo ahorro agregado',
+        showConfirmButton: false,
+        timer: 1500
+    });
+
+    this.form.reset();
+        //this.router.navigate(['Login])
+
+      } else {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Hubo un error'
+        });
+      }
+  }
+
+  alHome() {
+    this.router.navigate(['/home'])
+  }
+
 
 }

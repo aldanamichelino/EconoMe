@@ -2,6 +2,28 @@ const express = require('express');
 const router = express.Router();
 const ahorrosModel = require('../models/ahorrosModel');
 
+router.get('/monedas', async(req,res,next)=>{
+    try {
+        let monedas = await ahorrosModel.getMoneda();
+        res.json({status : 'ok', data : monedas});
+    } catch(error){
+        console.log(error);
+        res.status(500).json({status : 'error'})
+    }
+})
+
+router.get('/cuentaProyecto', async(req,res,next)=>{
+    try {
+        let cuentaproyecto = await ahorrosModel.getCuentaProyecto();
+        res.json({status : 'ok', data : cuentaproyecto});
+    } catch(error){
+        console.log(error);
+        res.status(500).json({status : 'error'})
+    }
+})
+
+
+
 router.post('/', async(req, res, next)=>{
 
     try {

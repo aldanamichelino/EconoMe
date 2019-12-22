@@ -12,6 +12,18 @@ async function getIdCP(id) {
   }
 }
 
+async function getCuentaProyecto(id) {
+    try {
+      let query = "select objetivo_cp as objetivo, moneda from ?? JOIN ?? ON id_moneda_cp = id_m where id_u_cp = ?";
+      const rows = await pool.query(query, [process.env.TABLA_CUENTA_PROYECTO, process.env.TABLA_MONEDA, id]);
+      console.log(rows);
+  
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 async function insertarAhorro(monto, moneda, id_u, fecha){
     try {
 
@@ -61,7 +73,7 @@ async function insertarExtraccion(monto, moneda, id_u, fecha){
 
 async function getAhorrosUsuario(id_u){
     try {
-        let query = "select sum(monto_a), moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? and monto_a > 0 group by moneda";
+        let query = "select sum(monto_a) as sumaMonto, simbolo from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? group by simbolo";
         const rows = await pool.query(query, [process.env.TABLA_AHORROS,
         process.env.TABLA_MONEDA, id_u]);
         return rows;
@@ -86,7 +98,7 @@ async function getAhorrosMonth(id) {
 
 async function getAhorrosDetalladosUsuario(id_u){
     try {
-        let query = "select monto_a, fecha, moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? and monto_a > 0"
+        let query = "select date_format(fecha, '%d-%m-%Y') as fecha, monto_a as monto, moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ?"
         const rows = await pool.query(query, [process.env.TABLA_AHORROS,
         process.env.TABLA_MONEDA, id_u]);
         return rows;
@@ -143,9 +155,21 @@ async function deleteAhorro(id_a){
     }
 }
 
+async function getMoneda(){
+    try {
+        let query = "select * from moneda";
+        const rows = await pool.query(query, [process.env.TABLA_MONEDA]);
+        return rows;
+    } catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
 
 module.exports = {
     insertarAhorro,
+    getCuentaProyecto,
     getAhorrosUsuario,
     getAhorrosMonth,
     getAhorrosDetalladosUsuario,
@@ -153,4 +177,5 @@ module.exports = {
     getAhorrosGastosUsuario,
     getAhorrosGastosDetalladosUsuario,
     updateAhorro,
-    deleteAhorro }
+    deleteAhorro,
+    getMoneda }
