@@ -47,4 +47,11 @@ async getSumaGastosMonth() {
     console.log(this.gastosMes);
   }
 }
+
+agregarGasto() {
+  this.router.navigate(['/nuevo-gasto']);
 }
+}
+
+
+

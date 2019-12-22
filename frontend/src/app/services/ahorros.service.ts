@@ -4,33 +4,36 @@ import { BaseService } from './base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class GastoService extends BaseService {
+export class AhorrosService extends BaseService {
 
-  async nuevoGasto(obj){
+  async getAhorrosMonth(){
     try {
-      this.setEndPoint('/gasto');
-      return this.post(obj);
-    } catch(error){
-      console.log(error);
-    }
-  }
-
-  async getMoneda(){
-    try {
-      this.setEndPoint('/gasto/monedas');
+      this.setEndPoint('/ahorros');
       return this.get();
+
     } catch(error){
       console.log(error);
     }
   }
 
-  async getCategoriaGastos(){
+  async getAhorrosUsuarios(){
     try {
-      this.setEndPoint('/gasto/categoria');
+      this.setEndPoint('/ahorros');
       return this.get();
+
     } catch(error){
       console.log(error);
     }
   }
 
+  async getAhorrosDetalladosUsuario(){
+    try {
+      this.setEndPoint('/ahorros');
+      return this.get();
+
+    } catch(error){
+      console.log(error);
+    }
+  }
+  
 }

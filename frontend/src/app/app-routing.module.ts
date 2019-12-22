@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { IngresoComponent } from './components/agregar/ingreso/ingreso.component';
 import { GastoComponent } from './components/agregar/gasto/gasto.component';
 import { HistorialComponent } from './components/historial/historial.component';
+import { AhorrosComponent } from './components/partials/ahorros/ahorros.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path : 'historial',
     component : HistorialComponent
+  },
+  {
+    path : 'ahorros',
+    component : AhorrosComponent
   },
   {
     path : '**',

@@ -61,7 +61,7 @@ async function insertarExtraccion(monto, moneda, id_u, fecha){
 
 async function getAhorrosUsuario(id_u){
     try {
-        let query = "select sum(monto_a), moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ?";
+        let query = "select sum(monto_a), moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? and monto_a > 0 group by moneda";
         const rows = await pool.query(query, [process.env.TABLA_AHORROS,
         process.env.TABLA_MONEDA, id_u]);
         return rows;
@@ -73,7 +73,7 @@ async function getAhorrosUsuario(id_u){
 
 async function getAhorrosMonth(id) {
     try {
-        let query = "SELECT * FROM ?? JOIN ?? ON id_moneda_a = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_a = ?";
+        let query = "SELECT date_format(fecha, '%d-%m-%Y') as fecha, monto_a as monto, moneda FROM ?? JOIN ?? ON id_moneda_a = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_a = ? and monto_a > 0";
         const rows = await pool.query(query, [process.env.TABLA_AHORROS,
         process.env.TABLA_MONEDA, id]);
 

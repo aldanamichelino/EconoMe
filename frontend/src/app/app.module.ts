@@ -17,6 +17,8 @@ import { IngresoComponent } from './components/agregar/ingreso/ingreso.component
 import { GastoComponent } from './components/agregar/gasto/gasto.component';
 import { HistorialComponent } from './components/historial/historial.component';
 import { IngresosHistorialComponent } from './components/historial/ingresos-historial/ingresos-historial.component';
+import { AhorrosComponent } from './components/partials/ahorros/ahorros.component';
+import { AhorroComponent } from './components/agregar/ahorro/ahorro.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { IngresosHistorialComponent } from './components/historial/ingresos-hist
     IngresoComponent,
     GastoComponent,
     HistorialComponent, 
-    IngresosHistorialComponent
+    IngresosHistorialComponent,
+    AhorrosComponent,
+    AhorroComponent
   ],
   imports: [
     BrowserModule,

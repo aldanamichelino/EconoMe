@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GastoService } from 'src/app/services/gasto.service';
+import { GastosService } from 'src/app/services/gastos.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export class GastoComponent implements OnInit {
   moneda : any [] = [];
   categoria : any [] = [];
 
-  constructor(private gastoService : GastoService) { }
+  constructor(private gastosService : GastosService, private router: Router) { }
 
   ngOnInit() {
 
@@ -40,7 +40,7 @@ export class GastoComponent implements OnInit {
 
   async getMoneda(){
     try {
-    let moneda : any = await this.gastoService.getMoneda();
+    let moneda : any = await this.gastosService.getMoneda();
     this.moneda = moneda.data;
     console.log(this.moneda);
     } catch(error){
@@ -50,7 +50,7 @@ export class GastoComponent implements OnInit {
 
   async getCategoriaGastos(){
     try {
-    let categoriaGastos : any = await this.gastoService.getCategoriaGastos();
+    let categoriaGastos : any = await this.gastosService.getCategoriaGastos();
     this.categoria = categoriaGastos.data;
     console.log(this.categoria);
   } catch(error){
@@ -78,7 +78,7 @@ export class GastoComponent implements OnInit {
 
   async nuevoGasto(){
     
-    let nuevo_gasto : any = await this.gastoService.nuevoGasto(this.form.value);
+    let nuevo_gasto : any = await this.gastosService.nuevoGasto(this.form.value);
     console.log(this.form.value);
     
     if(nuevo_gasto != null){
@@ -100,6 +100,10 @@ export class GastoComponent implements OnInit {
           text: 'Hubo un error'
         });
       }
+  }
+
+  alHome() {
+    this.router.navigate(['/home'])
   }
 
 }
