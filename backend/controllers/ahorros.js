@@ -14,7 +14,9 @@ router.get('/monedas', async(req,res,next)=>{
 
 router.get('/cuentaProyecto', async(req,res,next)=>{
     try {
-        let cuentaproyecto = await ahorrosModel.getCuentaProyecto();
+
+        let id = req.id;
+        let cuentaproyecto = await ahorrosModel.getCuentaProyecto(id);
         res.json({status : 'ok', data : cuentaproyecto});
     } catch(error){
         console.log(error);

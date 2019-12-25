@@ -43,7 +43,7 @@ export class AhorrosComponent implements OnInit {
       this.ahorrosTotal = ahorros_total.ahorros_total;
       this.sumaMonto = ahorros_total.ahorros_total[1];
       this.sumaDolares = ahorros_total.ahorros_total[0];
-      // console.log(this.ahorrosTotal);   
+      console.log(this.ahorrosTotal);   
     }  
     
     if(detalle_ahorros != 'undefined') {
@@ -53,10 +53,11 @@ export class AhorrosComponent implements OnInit {
       this.titulos = Object.keys(this.detalleAhorros[0]);
     }
 
-    if(objetivo_pesos != 'undefined'){
-      this.cPPesos = objetivo_pesos;
+    if(objetivo_pesos != 'undefined') {
+      this.cPPesos = objetivo_pesos.data[0];
       console.log(this.cPPesos);
     }
+
 
   }
 

@@ -14,7 +14,7 @@ async function getIdCP(id) {
 
 async function getCuentaProyecto(id) {
     try {
-      let query = "select objetivo_cp as objetivo, moneda from ?? JOIN ?? ON id_moneda_cp = id_m where id_u_cp = ?";
+      let query = "select objetivo_cp as objetivo, moneda FROM ?? JOIN ?? ON id_moneda_cp = id_m where id_u_cp = ?";
       const rows = await pool.query(query, [process.env.TABLA_CUENTA_PROYECTO, process.env.TABLA_MONEDA, id]);
       console.log(rows);
   
