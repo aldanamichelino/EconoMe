@@ -11,6 +11,17 @@ async function getGastos(id) {
     }
 }
 
+async function getAllGastos(id) {
+    try {
+        let query = "SELECT date_format(fecha, '%d-%m-%Y') as Fecha, monto_g as Monto, Moneda, categoria_g as Categoría, date_format(vencimiento_g, '%d-%m-%Y') as Vencimiento, banco_g as Entidad, Pagado  FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ? ORDER BY Fecha DESC";
+        const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, process.env.TABLA_MONEDA, id]);
+        return rows;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 async function getSumaGastosMonth(id) {
     try {
         let query = "SELECT SUM(monto_g) as monto, simbolo FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_g = ? GROUP BY simbolo";
@@ -138,6 +149,7 @@ async function deleteGasto(id) {
 
 module.exports = {
     getGastos,
+    getAllGastos,
     getGastosMonth,
     getSumaGastosMonth,
     getMoneda,

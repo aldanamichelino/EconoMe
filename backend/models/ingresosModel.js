@@ -2,7 +2,7 @@ const pool = require('../bd');
 
 async function getIngresos(id) {
     try {
-        let query = "SELECT id_i, monto_i, moneda, categoria_i FROM ?? JOIN ?? ON id_categoria_i = id_ci JOIN ?? ON id_moneda_i = id_m WHERE id_usuario_i = ?";
+        let query = "SELECT date_format(fecha, '%d-%m-%Y') as Fecha, monto_i as Monto, Moneda, categoria_i as Categoría FROM ?? JOIN ?? ON id_categoria_i = id_ci JOIN ?? ON id_moneda_i = id_m WHERE id_usuario_i = ? ORDER BY fecha DESC";
         const rows = await pool.query(query, [process.env.TABLA_INGRESOS, process.env.TABLA_CATEGORIAS_INGRESOS, process.env.TABLA_MONEDA, id]);
         return rows;
     } catch (error) {

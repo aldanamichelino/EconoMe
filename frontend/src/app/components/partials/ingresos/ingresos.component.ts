@@ -23,7 +23,6 @@ export class IngresosComponent implements OnInit {
 
     let respuesta_server : any = await this.ingresosService.getIngresosDelMes() //get base service
     //respuesta_server devuelve un array de objetos
-    console.log(respuesta_server);
 
     if(respuesta_server.status == 'ok' && respuesta_server.data != 'undefined') {
       this.ingresosMes = respuesta_server.data;

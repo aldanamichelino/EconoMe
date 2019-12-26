@@ -12,11 +12,13 @@ h2 {
 .btn-group {
     margin: 0 auto;
     width: 80%;
+    margin-bottom: 30px;
 }
 
 .btn-secondary {
     background-color: #ace8c4;
     border-color: #ace8c4fc;
+
 }
 
 .btn-secondary:focus {

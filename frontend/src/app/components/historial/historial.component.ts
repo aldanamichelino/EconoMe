@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-historial',
   templateUrl: './historial.component.html',
@@ -9,7 +8,28 @@ export class HistorialComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ingresos: boolean = false;
+  gastos: boolean = false;
+  ahorros: boolean = false;
+
+  ngOnInit() {     
   }
 
+  showIngresos () {
+    this.gastos = false;
+    this.ahorros = false;
+    this.ingresos = !this.ingresos;
+  }
+
+  showGastos() {
+    this.ingresos = false;
+    this.ahorros = false;
+    this.gastos = !this.gastos;
+  }
+
+  showAhorros() {
+    this.ingresos = false;
+    this.gastos = false;
+    this.ahorros = !this.ahorros;
+  }
 }

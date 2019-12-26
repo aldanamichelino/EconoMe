@@ -2,10 +2,17 @@
     
     <h2>Mis Historiales</h2>
     
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary">Ingresos</button>
-        <button type="button" class="btn btn-secondary">Gastos</button>
-        <button type="button" class="btn btn-secondary">Ahorros</button>
-      </div>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-secondary" (click)="showIngresos();">Ingresos</button>
+        <button type="button" class="btn btn-secondary" (click)="showGastos();">Gastos</button>
+        <button type="button" class="btn btn-secondary" (click)="showAhorros();">Ahorros</button>
+    </div>
+      
+    <div class="w-75">
+      <app-ingresos-historial *ngIf = "ingresos"></app-ingresos-historial>
+      <app-gastos-historial *ngIf = "gastos"></app-gastos-historial>
+      <app-ahorros-historial *ngIf = "ahorros"></app-ahorros-historial>
+    </div>
+
 </div>
 
