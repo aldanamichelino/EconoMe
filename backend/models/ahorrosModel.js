@@ -14,7 +14,7 @@ async function getIdCP(id) {
 
 async function getCuentaProyecto(id) {
     try {
-      let query = "select objetivo_cp as objetivo, moneda FROM ?? JOIN ?? ON id_moneda_cp = id_m where id_u_cp = ?";
+      let query = "select objetivo_cp as objetivo, id_cp, moneda FROM ?? JOIN ?? ON id_moneda_cp = id_m where id_u_cp = ?";
       const rows = await pool.query(query, [process.env.TABLA_CUENTA_PROYECTO, process.env.TABLA_MONEDA, id]);
       console.log(rows);
   
@@ -73,7 +73,11 @@ async function insertarExtraccion(monto, moneda, id_u, fecha){
 
 async function getAhorrosUsuario(id_u){
     try {
-        let query = "select sum(monto_a) as sumaMonto, simbolo from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? group by simbolo";
+
+        // let id_cp = await getIdCP(id_u);
+        // console.log(id_cp);
+
+        let query = "SELECT SUM(monto_a) as monto, simbolo FROM ?? JOIN ?? ON id_moneda_a = id_m WHERE id_u_a = ? GROUP BY simbolo";
         const rows = await pool.query(query, [process.env.TABLA_AHORROS,
         process.env.TABLA_MONEDA, id_u]);
         return rows;
@@ -154,6 +158,7 @@ async function deleteAhorro(id_a){
         throw error;
     }
 }
+
 
 async function getMoneda(){
     try {

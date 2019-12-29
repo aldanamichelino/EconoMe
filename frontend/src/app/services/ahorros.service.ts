@@ -71,5 +71,5 @@ export class AhorrosService extends BaseService {
       console.log(error);
     }
   }
-  
+
 }

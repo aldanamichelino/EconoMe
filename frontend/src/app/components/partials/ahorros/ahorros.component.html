@@ -1,7 +1,7 @@
 <h1>Ahorros</h1>
 
-<p>{{sumaDolares.simbolo}} {{sumaDolares.sumaMonto}}</p>
-<p>{{sumaMonto.simbolo}} {{sumaMonto.sumaMonto}}</p>
+<p>{{sumaDolares.simbolo}} {{sumaDolares.monto}}</p>
+<p>{{sumaMonto.simbolo}} {{sumaMonto.monto}}</p>
 
 
 <div class="simbols">
@@ -10,8 +10,41 @@
 </div>
 
 <br>
+
+<div *ngIf="cuentaProyecto > 0; else creaTuCP">
+
 <h6>Mi objetivo en pesos: {{cPPesos.objetivo}}</h6>
 <h6>Mi objetivo en dólares: </h6>
+
+</div>
+
+<ng-template #creaTuCP>
+    <div class="col-8">
+        <div>
+            <span>¿Querés crear tu cuenta proyecto?</span>
+            <input type="number" class="form-control" name="objetivo" placeholder="¿Cuál es tu objetivo?" formControlName="objetivo">
+            <span *ngIf= "form.get('objetivo').status != 'VALID' && form.get('objetivo').touched; else sinError" class="text-danger">No cumple con los requisitos</span>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <span>Moneda</span>
+            <select class="custom-select" #m (change)="elegirMoneda(m.value)" formControlName='moneda'>
+              <option value=""  disabled>Elegí la moneda</option>
+              <option *ngFor="let item of moneda" value="{{item.id_m}}">{{item.moneda}}</option>
+         </select>
+
+          </div>
+
+        <button type="" [disabled]="form.invalid" class="btn btn-success btn-block">Creá tu cuenta proyecto</button>
+    </div>
+    
+    <ng-template #sinError>
+        <span></span>
+    </ng-template>
+</ng-template>
+
 
 
 
