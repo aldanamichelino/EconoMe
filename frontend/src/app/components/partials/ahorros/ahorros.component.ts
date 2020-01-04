@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AhorrosService } from 'src/app/services/ahorros.service';
 import { Router } from '@angular/router';
-import {ModalManager} from "ngb-modal";
+import { ModalManager } from "ngb-modal";
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -25,11 +25,25 @@ export class AhorrosComponent implements OnInit {
   cuentaProyecto : number = 0;
   moneda : any [] = [];
   form : FormGroup;
+  contar : number = 0;
 
 
   constructor(private ahorrosService : AhorrosService, private router : Router, private modalService : ModalManager) { }
 
   async ngOnInit() {
+
+    this.form = new FormGroup({
+      'objetivo' : new FormControl('', [Validators.required]),
+      'moneda' : new FormControl('', [Validators.required])
+    })
+
+    let id_cp : any = await this.ahorrosService.getCP();
+    console.log(id_cp);
+
+    if(id_cp != 'undefined') {
+      this.cuentaProyecto = id_cp.data[0].id_cp;
+      console.log(this.cuentaProyecto);
+    }
 
     this.getMoneda();
 
@@ -46,31 +60,32 @@ export class AhorrosComponent implements OnInit {
     let objetivo_pesos : any = await this.ahorrosService.getCuentaProyecto();
     console.log(objetivo_pesos);
 
-    if(ahorros_total != 'undefined') {
-      this.ahorrosTotal = ahorros_total.ahorros_total;
-      this.sumaMonto = ahorros_total.ahorros_total[1];
-      this.sumaDolares = ahorros_total.ahorros_total[0];
-      console.log(this.ahorrosTotal);   
-    }  
-    
-    if(detalle_ahorros != 'undefined') {
-      this.detalleAhorros = detalle_ahorros.ahorros_detallados;
-      console.log(this.detalleAhorros);
+    let contar : any = await this.ahorrosService.contarCP();
+    console.log(contar);
 
-      this.titulos = Object.keys(this.detalleAhorros[0]);
+    if(contar != 'undefined') {
+      this.contar = contar.data[0].cuenta;
+      console.log(this.contar);
     }
 
     if(objetivo_pesos != 'undefined') {
       this.cPPesos = objetivo_pesos.data[0];
-      this.cuentaProyecto = objetivo_pesos.data[0].id_cp;
       console.log(this.cPPesos);
-      console.log(this.cuentaProyecto);
     }
 
-    this.form = new FormGroup({
-      'objetivo' : new FormControl('', [Validators.required]),
-      //cada input, y le ponemos si arranca vacio y si tiene validadores, se pueden enviar muchos validators pero si o si dentro del array. Matchea con el formControlName del input
-    })
+    if(ahorros_total != 'undefined') {
+      this.ahorrosTotal = ahorros_total.ahorros_total;
+      this.sumaMonto = ahorros_total.ahorros_total[1];
+      this.sumaDolares = ahorros_total.ahorros_total[0];  
+    }  
+    
+    if(detalle_ahorros != 'undefined') {
+      this.detalleAhorros = detalle_ahorros.ahorros_detallados;
+
+      this.titulos = Object.keys(this.detalleAhorros[0]);
+    }
+
+    
 
   }
 
@@ -88,6 +103,34 @@ export class AhorrosComponent implements OnInit {
     console.log(id)
     this.form.value.moneda = id;
     console.log(this.form.value)
+  }
+
+  async nuevaCuentaProyecto(){
+    
+    let nueva_cp : any = await this.ahorrosService.insertarCuentaProyecto(this.form.value);
+    console.log(this.form.value);
+    
+    if(nueva_cp != null){
+      await Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cuenta proyecto creada',
+        showConfirmButton: false,
+        timer: 1500
+    });
+    
+    this.form.reset();
+    this.ngOnInit();
+
+      } else {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Hubo un error'
+        });
+      }
+
+    
   }
 
   agregarAhorro() {

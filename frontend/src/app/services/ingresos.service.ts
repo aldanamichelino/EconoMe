@@ -72,6 +72,15 @@ export class IngresosService extends BaseService{
     }
   }
 
+  async getMoneda(){
+    try {
+      this.setEndPoint('/ingresos/monedas');
+      return this.get();
+    } catch(error){
+      console.log(error);
+    }
+  }
+
   
 
   // async deleteIngreso(id_i) {

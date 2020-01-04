@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const ingresosModel = require('../models/ingresosModel.js');
 
+router.get('/monedas', async(req,res,next)=>{
+    try {
+        let monedas = await ingresosModel.getMoneda();
+        res.json({status : 'ok', data : monedas});
+    } catch(error){
+        console.log(error);
+        res.status(500).json({status : 'error'})
+    }
+})
+
 router.get('/', async(req, res, next) => {
     try {
         let ingresos_data = await ingresosModel.getIngresos(req.id);

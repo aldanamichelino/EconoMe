@@ -54,6 +54,24 @@ export class AhorrosService extends BaseService {
     }
   }
 
+  async getCP(){
+    try {
+      this.setEndPoint('/cuentaProyecto');
+      return this.get();
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+  async contarCP(){
+    try {
+      this.setEndPoint('/cuentaProyecto/contar');
+      return this.get();
+    } catch(error){
+      console.log(error);
+    }
+  }
+
   async getCategoriaGastos(){
     try {
       this.setEndPoint('/ahorros/categoria');
@@ -71,5 +89,14 @@ export class AhorrosService extends BaseService {
       console.log(error);
     }
   }
+
+  async insertarCuentaProyecto(obj){
+    try {
+      this.setEndPoint('/cuentaProyecto');
+      return this.post(obj);
+    } catch(error){
+      console.log(error);
+    }
+  }  
 
 }

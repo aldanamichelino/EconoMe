@@ -104,7 +104,19 @@ async function deleteIngreso(id) {
     }
 }
 
+async function getMoneda(){
+    try {
+        let query = "select * from moneda";
+        const rows = await pool.query(query, [process.env.TABLA_MONEDA]);
+        return rows;
+    } catch(error){
+        console.log(error);
+        throw error;
+    }
+}
+
 module.exports = {
+    getMoneda,
     getIngresos,
     getIngresosMonth,
     getSumaIngresosMonth,

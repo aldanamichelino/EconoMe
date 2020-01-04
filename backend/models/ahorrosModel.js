@@ -162,7 +162,7 @@ async function deleteAhorro(id_a){
 
 async function getMoneda(){
     try {
-        let query = "select * from moneda";
+        let query = "select * from ??";
         const rows = await pool.query(query, [process.env.TABLA_MONEDA]);
         return rows;
     } catch(error){

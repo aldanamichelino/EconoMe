@@ -8,6 +8,7 @@ router.post('/', async(req, res, next)=>{
 
         let nuevaCuentaProyecto = {
             objetivo_cp : req.body.objetivo,
+            id_moneda_cp : req.body.moneda,
             id_u_cp : req.id
         }
 
@@ -27,8 +28,20 @@ router.get('/', async(req, res, next) => {
 
     try {
 
-        let cuentaProyecto = await cuentaProyectoModel.getCuentaProyecto(req.id);
+        let cuentaProyecto = await cuentaProyectoModel.getCP(req.id);
         res.json({status : 'ok', data : cuentaProyecto });
+
+    } catch (error) {
+        res.status(500).json({status : 'error'});
+    }
+})
+
+router.get('/contar', async(req, res, next) => {
+
+    try {
+
+        let contarCP = await cuentaProyectoModel.contarCP(req.id);
+        res.json({status : 'ok', data : contarCP });
 
     } catch (error) {
         res.status(500).json({status : 'error'});
