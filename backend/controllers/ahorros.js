@@ -25,6 +25,17 @@ router.get('/cuentaProyecto', async(req,res,next)=>{
     }
 })
 
+router.get('/cuentaProyecto/id', async(req,res,next)=>{
+    try {
+
+        let id = req.id;
+        let cuentaproyectoId = await ahorrosModel.getIdCP(id);
+        res.json({status : 'ok', data : cuentaproyectoId});
+    } catch(error){
+        console.log(error);
+        res.status(500).json({status : 'error'})
+    }
+})
 
 
 router.post('/', async(req, res, next)=>{

@@ -37,14 +37,6 @@ export class AhorrosComponent implements OnInit {
       'moneda' : new FormControl('', [Validators.required])
     })
 
-    let id_cp : any = await this.ahorrosService.getCP();
-    console.log(id_cp);
-
-    if(id_cp != 'undefined') {
-      this.cuentaProyecto = id_cp.data[0].id_cp;
-      console.log(this.cuentaProyecto);
-    }
-
     this.getMoneda();
 
     if(localStorage.getItem('usuario') != null) {
@@ -85,7 +77,13 @@ export class AhorrosComponent implements OnInit {
       this.titulos = Object.keys(this.detalleAhorros[0]);
     }
 
-    
+    let id_cp : any = await this.ahorrosService.getIdCP();
+    console.log(id_cp);
+
+    if(id_cp != 'undefined') {
+      this.cuentaProyecto = id_cp.data[0].id_cp;
+      console.log(this.cuentaProyecto);
+    } 
 
   }
 

@@ -28,7 +28,7 @@ export class IngresoComponent implements OnInit {
     // }
 
     this.getCategoriaIngresos();
-    // this.getMoneda();
+    this.getMoneda();
 
     this.form = new FormGroup({
       'monto' : new FormControl('', [Validators.required]),

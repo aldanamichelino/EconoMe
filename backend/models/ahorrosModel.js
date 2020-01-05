@@ -173,6 +173,7 @@ async function getMoneda(){
 
 
 module.exports = {
+    getIdCP,
     insertarAhorro,
     getCuentaProyecto,
     getAhorrosUsuario,

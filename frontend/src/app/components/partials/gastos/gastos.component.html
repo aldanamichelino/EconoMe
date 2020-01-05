@@ -1,11 +1,11 @@
 <h1>Gastos</h1>
 
-
+<p>{{mensaje}}</p>
 <p>{{suma.simbolo}} {{suma.monto}}</p>
 <p>{{sumaDolares.simbolo}} {{sumaDolares.monto}}</p>
 
 
 <div class="simbols">
-<app-modal-component [componente]="[nombreComponente, gastosMes, titulos]"></app-modal-component>
+<app-modal-component [componente]="[nombreComponente, gastosMes, titulos, mensaje]"></app-modal-component>
 <button (click)="agregarGasto()" class="boton-home btn btn-lg btn-outline-primary"><i class="fas fa-plus"></i></button>
 </div>

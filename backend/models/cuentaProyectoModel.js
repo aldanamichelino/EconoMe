@@ -13,20 +13,6 @@ async function insertarCuentaProyecto(cuentaProyecto){
     }
 }
 
-async function getCP(id_u){
-   
-    try {
-        let query = "select id_cp from ?? where id_u_cp = ?";
-        const rows = await pool.query(query, [process.env.TABLA_CUENTA_PROYECTO, id_u]);
-        return rows;
-    } catch(error) {
-        console.log('error al recuperar la cuenta proyecto');
-        throw error;
-    
-    }   
-        
-}
-
 async function contarCP(id_u){
    
     try {
@@ -71,7 +57,6 @@ async function deleteCuentaProyecto(id){
 
 module.exports = {
     insertarCuentaProyecto,
-    getCP,
     contarCP,
     updateCuentaProyecto,
     deleteCuentaProyecto }

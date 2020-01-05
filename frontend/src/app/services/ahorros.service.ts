@@ -54,9 +54,9 @@ export class AhorrosService extends BaseService {
     }
   }
 
-  async getCP(){
+  async getIdCP(){
     try {
-      this.setEndPoint('/cuentaProyecto');
+      this.setEndPoint('/ahorros/cuentaProyecto/id');
       return this.get();
     } catch(error){
       console.log(error);

@@ -24,17 +24,17 @@ router.post('/', async(req, res, next)=>{
     }
 });
 
-router.get('/', async(req, res, next) => {
+// router.get('/', async(req, res, next) => {
 
-    try {
+//     try {
 
-        let cuentaProyecto = await cuentaProyectoModel.getCP(req.id);
-        res.json({status : 'ok', data : cuentaProyecto });
+//         let cuentaProyecto = await cuentaProyectoModel.getCP(req.id);
+//         res.json({status : 'ok', data : cuentaProyecto });
 
-    } catch (error) {
-        res.status(500).json({status : 'error'});
-    }
-})
+//     } catch (error) {
+//         res.status(500).json({status : 'error'});
+//     }
+// })
 
 router.get('/contar', async(req, res, next) => {
 
