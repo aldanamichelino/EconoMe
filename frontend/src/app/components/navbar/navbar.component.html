@@ -5,18 +5,19 @@
         <li class="nav-item active">
           <a class="nav-link" href="#">Home<span class="sr-only"></span></a>
         </li>
-        <li class="nav-item dropdown" *ngIf="login; else nologin">
+        <li class="nav-item dropdown" *ngIf="login; else nologin ">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{nombre}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Perfil</a>
+            <a class="dropdown-item" [routerLink]="['/perfil']">Perfil</a>
             <a class="dropdown-item" (click)="logout()">Salir</a>
+
           </div>
         </li>
         <ng-template #nologin>
             <li class="nav-item">
-                <a class="nav-link" href="#">Registro</a>
+                <a class="nav-link" [routerLink]="['/registro']">Registro</a>
             </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/login']">Iniciar sesión</a>

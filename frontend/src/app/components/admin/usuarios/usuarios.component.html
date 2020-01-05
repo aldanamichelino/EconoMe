@@ -1,0 +1,19 @@
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th  scope="col" *ngFor="let titulo of titulos">{{titulo}}</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- el tr recorre el array con objetos (cada transaccion del usuario) -->
+          <tr *ngFor="let fila of valores; let i = index"> 
+            <!-- el td recorre los arrays con los valores e imprime cada uno -->
+            <td *ngFor="let columna of fila">{{columna}}</td>
+            <td (click)="editar(i)"> <i class="far fa-edit"></i> </td>
+          </tr>
+            
+        </tbody>
+      </table>
+</div>

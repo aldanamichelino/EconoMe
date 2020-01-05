@@ -11,10 +11,12 @@ import {ModalManager} from "ngb-modal"
 export class IngresosComponent implements OnInit {
 
   ingresosMes : any [] = [];
-  sumaPesos : number = 0;
-  sumaDolares : number = 0;
+  sumaPesos : any;
+  sumaDolares : any;
   nombreComponente : string = "Ingresos";
   titulos : any [] = [];
+  suma: any;
+  mensaje: string;
 
   constructor(private ingresosService : IngresosService, private router : Router, private modalService : ModalManager) { }
 
@@ -24,8 +26,15 @@ export class IngresosComponent implements OnInit {
     let respuesta_server : any = await this.ingresosService.getIngresosDelMes() //get base service
     //respuesta_server devuelve un array de objetos
 
-    if(respuesta_server.status == 'ok' && respuesta_server.data != 'undefined') {
-      this.ingresosMes = respuesta_server.data;
+ 
+    
+
+    if(respuesta_server.status == 'ok' && respuesta_server.data.length > 0) {
+      this.ingresosMes = respuesta_server.data;    
+
+     
+      
+      this.suma = respuesta_server.suma;
 
       if(respuesta_server.suma[0]) {
         this.sumaPesos = respuesta_server.suma[0];
@@ -36,7 +45,9 @@ export class IngresosComponent implements OnInit {
       }
 
       this.titulos = Object.keys(this.ingresosMes[0]);      
-    }   
+    } else {
+      this.mensaje = "No hubo ingresos en el mes corriente."
+    }     
   }
 
   async getIngresosTotales () {

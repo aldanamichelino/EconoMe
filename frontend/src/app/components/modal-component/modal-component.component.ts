@@ -14,13 +14,14 @@ export class ModalComponentComponent {
   public ingresosMes; // NO SE UTILIZA YA QUE NO SE APLICAN LOS DATOS
   public valores: any [] = [];
   public categorias: any [] = [];
+  mensaje: string;
 
   constructor(private modalService: NgbModal) {}
 
  ngOnInit() {
    //SE VUELCAN LOS DATOS QUE VIAJAN EN LA VARIABLE COMPONENTE(UN ARRAY).
     this.nombreComponente = this.componente[0];
-    this.ingresosMes = this.componente[1];  // CONSULTAR POR QUE NO SE VUELCAN LOS DATOS EN LA VARIABLE    
+    this.ingresosMes = this.componente[1];  // CONSULTAR POR QUE NO SE VUELCAN LOS DATOS EN LA VARIABLE   
   }
     
   //AL ABRIR EL MODAL
@@ -36,6 +37,7 @@ export class ModalComponentComponent {
           }          
       }
 
+console.log(this.ingresosMes.length > 0);
 
     }    
   }

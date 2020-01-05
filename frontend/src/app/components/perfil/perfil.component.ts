@@ -5,48 +5,53 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-registro',
-  templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+  selector: 'app-perfil',
+  templateUrl: './perfil.component.html',
+  styleUrls: ['./perfil.component.css']
 })
-export class RegistroComponent implements OnInit {
-form : FormGroup;
+export class PerfilComponent implements OnInit {
+  form : FormGroup;
 
   constructor(private usuariosService : UsuariosService, private router : Router) { }
 
-  ngOnInit() {
-    //activar los controles
+  async ngOnInit() {
+
+  let get_usuario : any = await this.usuariosService.getUsuario();
+
+  let usuario = get_usuario.data[0];
+  console.log(usuario.nombre_u);
+  
+
     this.form = new FormGroup({
-      'nombre' : new FormControl('', [Validators.required, Validators.minLength(5)]),
+      'nombre' : new FormControl(usuario.nombre_u , [Validators.required, Validators.minLength(5)]),
       //cada input, y le ponemos si arranca vacio y si tiene validadores, se pueden enviar muchos validators pero si o si dentro del array. Matchea con el formControlName del input
-      'apellido' : new FormControl('', [Validators.required, Validators.minLength(5)]),
-      'email' : new FormControl('', [Validators.required, Validators.email]),
+      'apellido' : new FormControl(usuario.apellido_u, [Validators.required, Validators.minLength(5)]),
       'password' : new FormControl('', [Validators.required, Validators.minLength(4)])
     })
   }
 
-  async registrar() {
+  async modificar() {
 
-    let post_ok : any = await this.usuariosService.postUsuario(this.form.value);
+    let put_ok : any = await this.usuariosService.putUsuario(this.form.value);
 
-    if(post_ok.status == 'ok') {
+    if(put_ok.status == 'ok') {
       await Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Registro exitoso!',
+        title: 'Your work has been saved',
         showConfirmButton: false,
         timer: 1500
       });
 
       this.form.reset();
-      //this.router.navigate(['Login])
+      this.router.navigate(['home'])
 
     } else {
       await Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Algo salió mal!',
-        footer: '<a href>Por qué?</a>'
+        text: 'Something went wrong!',
+        footer: '<a href>Why do I have this issue?</a>'
       })
     }
   }

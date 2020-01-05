@@ -27,3 +27,14 @@ h2 {
     border-color: #88cca1;
     box-shadow: none;
 }
+
+.backArrow {
+    color: #ace8c4;
+    font-size: 35px;
+    padding: 60px 30px;
+    width: 100%;
+}
+
+.backArrow i{
+    cursor: pointer;
+}

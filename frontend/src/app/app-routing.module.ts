@@ -10,6 +10,9 @@ import { GastoComponent } from './components/agregar/gasto/gasto.component';
 import { HistorialComponent } from './components/historial/historial.component';
 import { AhorrosComponent } from './components/partials/ahorros/ahorros.component';
 import { AhorroComponent } from './components/agregar/ahorro/ahorro.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { AuthGuard } from './auth.guard';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 const routes: Routes = [
@@ -23,31 +26,48 @@ const routes: Routes = [
   },
   {
     path : 'gastos',
+    canActivate : [AuthGuard],
     component : GastosComponent
   },
   {
     path : 'home',
+    canActivate : [AuthGuard],
     component : HomeComponent
   },
   {
     path : 'nuevo-ingreso',
+    canActivate : [AuthGuard],
     component : IngresoComponent
   },
   {
   path : 'nuevo-gasto',
+  canActivate : [AuthGuard],
     component : GastoComponent
   },
   {
     path : 'historial',
+    canActivate : [AuthGuard],
     component : HistorialComponent
   },
   {
     path : 'ahorros',
+    canActivate : [AuthGuard],
     component : AhorrosComponent
   },
   {
     path : 'nuevo-ahorro',
+    canActivate : [AuthGuard],
     component : AhorroComponent
+  },
+  {
+    path : 'perfil',
+    canActivate : [AuthGuard],
+    component : PerfilComponent
+  },
+  {
+    path : 'admin',
+    canActivate : [AuthGuard],
+    component : AdminComponent
   },
   {
     path : '**',

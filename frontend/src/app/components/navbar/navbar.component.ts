@@ -25,8 +25,6 @@ export class NavbarComponent implements OnInit {
     console.log("entro a logout");
     localStorage.clear();
     this.login = false;
-    this.router.navigate(['/']);
-
-
+    this.router.navigate(['/login']);
 }
 }
