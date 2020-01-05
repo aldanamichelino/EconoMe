@@ -21,6 +21,10 @@ import { AhorrosComponent } from './components/partials/ahorros/ahorros.componen
 import { AhorroComponent } from './components/agregar/ahorro/ahorro.component';
 import { GastosHistorialComponent } from './components/historial/gastos-historial/gastos-historial.component';
 import { AhorrosHistorialComponent } from './components/historial/ahorros-historial/ahorros-historial.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { UsuariosComponent } from './components/admin/usuarios/usuarios.component';
+import { CategoriasComponent } from './components/admin/categorias/categorias.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { AhorrosHistorialComponent } from './components/historial/ahorros-histor
     AhorrosComponent,
     AhorroComponent,
     GastosHistorialComponent,
-    AhorrosHistorialComponent
+    AhorrosHistorialComponent,
+    PerfilComponent,
+    AdminComponent,
+    UsuariosComponent,
+    CategoriasComponent
   ],
   imports: [
     BrowserModule,

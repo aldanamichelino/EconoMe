@@ -9,7 +9,6 @@ export class UsuariosService extends BaseService{
   async getUsuario() {
     try {
       this.setEndPoint('/usuarios');
-      console.log(this.get());
       return this.get();
     } catch (error) {
       console.log(error);
@@ -18,7 +17,7 @@ export class UsuariosService extends BaseService{
 
   async getUsuarios() { //PARA QUE EL ADMIN VEA TODOS LOS USUARIOS
     try {
-      this.setEndPoint('/admin/usuarios');
+      this.setEndPoint('/panelUsuarios');
 
       return this.get();
       
@@ -58,7 +57,7 @@ export class UsuariosService extends BaseService{
     }
   }
 
-  async putPassword(obj) {
+  async putUsuario(obj) {
     this.setEndPoint('/usuarios');
     return this.put(obj);
   }

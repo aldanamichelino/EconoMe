@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('usuario', user_ok.JWT);
         localStorage.setItem('nombre', user_ok.usuario_ok.nombre);
-
+     
         this.form.reset();
   
         this.router.navigate(['/']);

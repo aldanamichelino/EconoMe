@@ -25,7 +25,7 @@ async function getUsuarioPorEmail(email, password){
 
 async function getUsuarios(){
   try{
-      let query = "select id_u, nombre_u, apellido_u, email_u, permisos_u from ??";
+      let query = "select id_u as Id, nombre_u as Nombre, apellido_u as Apellido, email_u as Email, permisos_u as Rol from ??";
       const rows = await pool.query(query,process.env.TABLA_USUARIOS);
       return rows;
   } catch(error){

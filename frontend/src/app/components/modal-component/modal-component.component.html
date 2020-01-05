@@ -11,7 +11,7 @@
 
       
       <div class="modal-body">
-        <table class="table table-responsive table-bordered">
+        <table class="table table-responsive table-bordered" *ngIf = 'ingresosMes.length > 0; else noHubo'>
           <thead >
             <tr>
               <th  *ngFor="let titulo of componente[2]">{{titulo}}</th>
@@ -25,7 +25,12 @@
             </tr>
           </tbody>
         </table>
-      </div>      
+
+        <ng-template #noHubo>
+          <p>No hubo {{nombreComponente}} en este mes.</p>
+        </ng-template>
+      </div> 
+
     </ng-template>
   
   <button class="boton-home btn btn-lg btn-outline-primary" (click)="open(content)"><i class="fas fa-list-ul"></i></button>

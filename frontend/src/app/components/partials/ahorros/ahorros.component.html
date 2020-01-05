@@ -7,6 +7,7 @@
 <div class="simbols">
 <app-modal-component [componente]="[nombreComponente, detalleAhorros, titulos]"></app-modal-component>
 <button (click)="agregarAhorro()" class="boton-home btn btn-lg btn-outline-primary"><i class="fas fa-plus"></i></button>
+<button [routerLink]="['/historial']" class="boton-home btn btn-lg btn-outline-primary"><i class="fa fa-history" aria-hidden="true"></i></button>   
 </div>
 
 <br>

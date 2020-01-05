@@ -18,8 +18,8 @@ router.put('/', async(req, res, next) => {
     let id = req.id;
 
     let obj = {
-      nombre_u : req.body.nombre_u,
-      apellido_u : req.body.apellido_u,
+      nombre_u : req.body.nombre,
+      apellido_u : req.body.apellido,
       password_u : md5(req.body.password)
     };
 
