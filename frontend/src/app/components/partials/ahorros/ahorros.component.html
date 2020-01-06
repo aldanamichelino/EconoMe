@@ -1,5 +1,6 @@
 <h1>Ahorros</h1>
 
+<p>{{mensaje}}</p>
 <p>{{sumaDolares.simbolo}} {{sumaDolares.monto}}</p>
 <p>{{sumaMonto.simbolo}} {{sumaMonto.monto}}</p>
 
@@ -12,18 +13,20 @@
 
 <br>
 
-<div *ngIf="cuentaProyecto > 0; else creaTuCP">
 
-<h6>Mi objetivo en pesos: {{cPPesos.objetivo}}</h6>
-<h6>Mi objetivo en dólares: </h6>
 
+<div>
+    <h6>Mi objetivo en pesos: {{cPPesos.objetivo}}</h6>
+    <h6>Mi objetivo en dólares: {{cPDolares.objetivo}}</h6>
 </div>
 
-<ng-template #creaTuCP>
+<br>
+
+<div *ngIf="contar < 3">
     <div class="col-6">
         <form [formGroup]="form" (ngSubmit)="nuevaCuentaProyecto()">
             <div class="form-group">
-                <span>¿Querés crear tu cuenta proyecto?</span>
+                <span>Objetivo</span>
                 <input type="number" class="form-control" name="objetivo" placeholder="¿Cuál es tu objetivo?" formControlName="objetivo">
                 <span *ngIf= "form.get('objetivo').status != 'VALID' && form.get('objetivo').touched; else sinError" class="text-danger">No cumple con los requisitos</span>
             </div>
@@ -36,6 +39,8 @@
                 <option value="" disabled>Elegí la moneda</option>
                 <option *ngFor="let item of moneda" value="{{item.id_m}}">{{item.moneda}}</option>
                 </select>
+                {{mensaje2}}
+                {{mensaje3}}
 
             </div>
 
@@ -45,7 +50,8 @@
                 </ng-template>
             </form>
         </div>
-    </ng-template>
+    </div>
+
             
     
         

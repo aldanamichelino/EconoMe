@@ -30,7 +30,7 @@ export class GastosComponent implements OnInit {
     let gastos_mes_respuesta : any = await this.gastosService.getGastosMonth();
     console.log(gastos_mes_respuesta);
 
-    if(gastos_mes_respuesta.status == 'ok' &&gastos_mes_respuesta.data.length > 0) {
+    if(gastos_mes_respuesta.status == 'ok' && gastos_mes_respuesta.data.length > 0) {
       this.gastosMes = gastos_mes_respuesta.data;
       this.suma = gastos_mes_respuesta.suma[0];
       this.sumaDolares = gastos_mes_respuesta.suma[1];

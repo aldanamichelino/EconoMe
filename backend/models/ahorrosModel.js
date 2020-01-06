@@ -1,9 +1,9 @@
 const utils = require('util');
 const pool = require('../bd');
 
-async function getIdCP(id) {
+async function getIdCPP(id) {
   try {
-    let query = "SELECT id_cp FROM ?? WHERE id_u_cp = ?";
+    let query = "SELECT id_moneda_cp = 1 FROM ?? WHERE id_u_cp = ?";
     const rows = await pool.query(query, [process.env.TABLA_CUENTA_PROYECTO, id]);
 
     return rows;
@@ -11,6 +11,17 @@ async function getIdCP(id) {
     throw error;
   }
 }
+
+async function getIdCPD(id) {
+    try {
+      let query = "SELECT id_moneda_cp = 2 FROM ?? WHERE id_u_cp = ?";
+      const rows = await pool.query(query, [process.env.TABLA_CUENTA_PROYECTO, id]);
+  
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
 
 async function getCuentaProyecto(id) {
     try {
@@ -173,7 +184,8 @@ async function getMoneda(){
 
 
 module.exports = {
-    getIdCP,
+    getIdCPP,
+    getIdCPD,
     insertarAhorro,
     getCuentaProyecto,
     getAhorrosUsuario,

@@ -22,10 +22,15 @@ export class AhorrosComponent implements OnInit {
   nombre : string = '';
   cPPesos : any [] = [];
   cPDolares : any [] = [];
-  cuentaProyecto : number = 0;
   moneda : any [] = [];
   form : FormGroup;
   contar : number = 0;
+  mensaje : string;
+  idCPP : null;
+  idCPD : null;
+  mensaje2 : string;
+  mensaje3 : string;
+
 
 
   constructor(private ahorrosService : AhorrosService, private router : Router, private modalService : ModalManager) { }
@@ -38,6 +43,8 @@ export class AhorrosComponent implements OnInit {
     })
 
     this.getMoneda();
+    this.getIdCPP();
+    this.getIdCPD();
 
     if(localStorage.getItem('usuario') != null) {
       this.nombre = localStorage.getItem('nombre');
@@ -49,42 +56,57 @@ export class AhorrosComponent implements OnInit {
     let detalle_ahorros : any = await this.ahorrosService.getAhorrosDetalladosUsuario();
     console.log(detalle_ahorros);
 
-    let objetivo_pesos : any = await this.ahorrosService.getCuentaProyecto();
-    console.log(objetivo_pesos);
+    let objetivos : any = await this.ahorrosService.getCuentaProyecto();
+    console.log(objetivos);
 
     let contar : any = await this.ahorrosService.contarCP();
     console.log(contar);
 
-    if(contar != 'undefined') {
+    if(contar != null) {
       this.contar = contar.data[0].cuenta;
       console.log(this.contar);
     }
 
-    if(objetivo_pesos != 'undefined') {
-      this.cPPesos = objetivo_pesos.data[0];
+    if(objetivos.data.length > 0) {
+      this.cPPesos = objetivos.data[0];
+      this.cPDolares = objetivos.data[1];
       console.log(this.cPPesos);
     }
 
-    if(ahorros_total != 'undefined') {
+    if(ahorros_total == 'ok' && ahorros_total.ahorros_total.length > 0) {
       this.ahorrosTotal = ahorros_total.ahorros_total;
       this.sumaMonto = ahorros_total.ahorros_total[1];
       this.sumaDolares = ahorros_total.ahorros_total[0];  
-    }  
+    } else {
+      this.mensaje = "No hubo ahorros en el mes corriente."
+    }
     
-    if(detalle_ahorros != 'undefined') {
+    if(detalle_ahorros.ahorros_detallados.length > 0) {
       this.detalleAhorros = detalle_ahorros.ahorros_detallados;
 
       this.titulos = Object.keys(this.detalleAhorros[0]);
     }
 
-    let id_cp : any = await this.ahorrosService.getIdCP();
-    console.log(id_cp);
+  }
 
-    if(id_cp != 'undefined') {
-      this.cuentaProyecto = id_cp.data[0].id_cp;
-      console.log(this.cuentaProyecto);
-    } 
+  async getIdCPP(){
+    try {
+    let idCPP : any = await this.ahorrosService.getIdCPP();
+    this.idCPP = idCPP.data[0];
+    console.log(this.idCPP);
+    } catch(error){
+      console.log(error);
+     }
+  }
 
+  async getIdCPD(){
+    try {
+    let idCPD : any = await this.ahorrosService.getIdCPD();
+    this.idCPD = idCPD.data[1];
+    console.log(this.idCPD);
+    } catch(error){
+      console.log(error);
+     }
   }
 
   async getMoneda(){
@@ -100,7 +122,13 @@ export class AhorrosComponent implements OnInit {
   elegirMoneda(id) {
     console.log(id)
     this.form.value.moneda = id;
-    console.log(this.form.value)
+    
+    if(this.form.value.moneda == 1 && this.idCPP != null){
+      this.mensaje2 = "Ya tenés un objetivo en esa moneda."
+    }else if(this.form.value.moneda == 2 && this.idCPD != null){
+      this.mensaje3 = "Ya tenés un objetivo en esa moneda."
+    }
+
   }
 
   async nuevaCuentaProyecto(){
@@ -134,5 +162,7 @@ export class AhorrosComponent implements OnInit {
   agregarAhorro() {
     this.router.navigate(['/nuevo-ahorro']);
   }
+
+  
 
 }
