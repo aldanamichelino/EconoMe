@@ -26,8 +26,7 @@ export class UsuariosComponent implements OnInit {
     this.titulos = Object.keys(usuarios_ok.data[0]);  
   }
 
-  editar(i) {
-    console.log(i);
+  openModal(i) {
     
   }
 
