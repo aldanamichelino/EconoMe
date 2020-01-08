@@ -61,5 +61,10 @@ export class UsuariosService extends BaseService{
     this.setEndPoint('/usuarios');
     return this.put(obj);
   }
+
+  async putRolUsuario(obj) {
+    this.setEndPoint('/panelUsuarios');
+    return this.put(obj);
+  }
 }
 

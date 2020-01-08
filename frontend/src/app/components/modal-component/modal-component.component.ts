@@ -37,7 +37,7 @@ export class ModalComponentComponent {
           }          
       }
 
-console.log(this.ingresosMes.length > 0);
+console.log(this.valores.length);
 
     }    
   }

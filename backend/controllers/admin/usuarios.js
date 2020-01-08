@@ -17,6 +17,11 @@ router.put('/', async(req, res, next) => {
         let id = req.body.id_u;
         let role = req.body.role;
 
+        console.log(id);
+        console.log(role);
+        
+        
+
         let user_update = await usuariosModel.updateRole(role, id);
 
         res.json({status : 'ok', data : user_update})
