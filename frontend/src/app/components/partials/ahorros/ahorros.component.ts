@@ -123,12 +123,12 @@ export class AhorrosComponent implements OnInit {
     console.log(id)
     this.form.value.moneda = id;
 
-    this.mensaje2 = this.mensaje3 = "";
+    this.mensaje2 = "";
     
     if(this.form.value.moneda == 1 && this.idCPP != null){
       this.mensaje2 = "Ya tenés un objetivo en esa moneda.";
     }else if(this.form.value.moneda == 2 && this.idCPD != null){
-      this.mensaje3 = "Ya tenés un objetivo en esa moneda.";
+      this.mensaje2 = "Ya tenés un objetivo en esa moneda.";
     }
 
   }
