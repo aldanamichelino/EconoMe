@@ -13,7 +13,7 @@ async function getGastos(id) {
 
 async function getAllGastos(id) {
     try {
-        let query = "SELECT date_format(fecha, '%d-%m-%Y') as Fecha, monto_g as Monto, Moneda, categoria_g as Categoría, date_format(vencimiento_g, '%d-%m-%Y') as Vencimiento, banco_g as Entidad, Pagado  FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ? ORDER BY Fecha DESC";
+        let query = "SELECT date_format(fecha, '%d-%m-%Y') as Fecha, monto_g as Monto, Moneda, categoria_g as Categoría, date_format(vencimiento_g, '%d-%m-%Y') as Vencimiento, banco_g as Entidad, Pagado  FROM ?? JOIN ?? ON id_categoria_g = id_cg JOIN ?? ON id_moneda_g = id_m WHERE id_u_g = ? ORDER BY id_g DESC";
         const rows = await pool.query(query, [process.env.TABLA_GASTOS, process.env.TABLA_CATEGORIAS_GASTOS, process.env.TABLA_MONEDA, id]);
         return rows;
     } catch (error) {

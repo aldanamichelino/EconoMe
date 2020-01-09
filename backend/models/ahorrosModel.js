@@ -110,7 +110,7 @@ async function getAhorrosMonth(id) {
 
 async function getAhorrosDetalladosUsuario(id_u){
     try {
-        let query = "select date_format(fecha, '%d-%m-%Y') as Fecha, monto_a as Monto, simbolo, moneda as Moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? ORDER BY Fecha DESC"
+        let query = "select date_format(fecha, '%d-%m-%Y') as Fecha, monto_a as Monto, simbolo, moneda as Moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? ORDER BY id_a DESC"
         const rows = await pool.query(query, [process.env.TABLA_AHORROS,
         process.env.TABLA_MONEDA, id_u]);
         return rows;

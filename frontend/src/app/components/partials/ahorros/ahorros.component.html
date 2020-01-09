@@ -1,8 +1,4 @@
-<h1>Ahorros</h1>
-
-<!-- <p>{{mensaje}}</p>
-<p>{{sumaMonto ? sumaMonto.simbolo : "Todavía no ahorraste en pesos este mes"}} {{sumaMonto ? sumaMonto.monto : ""}}</p>
-<p>{{sumaDolares ? sumaDolares.simbolo : "Todavía no ahorraste en dólares este mes"}} {{sumaDolares ? sumaDolares.monto : ""}}</p> -->
+<h2>Ahorros</h2>
 
 <div *ngIf = "ahorrosDelMes.length > 0; else noHubo">
     <p *ngIf= "sumaMonto != undefined">{{sumaMonto.simbolo}} {{sumaMonto.monto}}</p>

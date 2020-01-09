@@ -21,7 +21,7 @@ export class PerfilComponent implements OnInit {
   let usuario = get_usuario.data[0];
   
 
-    this.form = new FormGroup({
+    this.form = await new FormGroup({
       'nombre' : new FormControl(usuario.nombre_u , [Validators.required, Validators.minLength(5)]),
       //cada input, y le ponemos si arranca vacio y si tiene validadores, se pueden enviar muchos validators pero si o si dentro del array. Matchea con el formControlName del input
       'apellido' : new FormControl(usuario.apellido_u, [Validators.required, Validators.minLength(5)]),

@@ -57,7 +57,7 @@
               </div>
 
               <div class="form-group">
-                <span>Banco</span>
+                <span>Entidad</span>
                 <input type="text" class="form-control" name="banco" placeholder="banco" formControlName="banco">
                 <span *ngIf= "form.get('banco').status != 'VALID' && form.get('banco').touched; else banco" class="text-danger">No cumple con los requisitos</span>
 
