@@ -3,11 +3,11 @@
 <div class="container">
     <div class="row">
         <div class="col-8">
-            <form [formGroup] = "form" (ngSubmit)="modificar()">
+            <form [formGroup]="form" (ngSubmit)="modificar()">
                 <div class="form-group">
 
                     <input type="text" class="form-control" name="nombre" [value]="form.get('nombre')[0]" formControlName="nombre">
-                    <span *ngIf= "form.get('nombre').status != 'VALID' && form.get('nombre').touched; else nombre" class="text-danger">No cumple con los requisitos</span>
+                    <span *ngIf= "form.get('nombre').status != 'VALID' && form.get('nombre').touched; else sinError" class="text-danger">No cumple con los requisitos</span>
 
                 </div>
 

@@ -42,7 +42,6 @@ export class GastoComponent implements OnInit {
     try {
     let moneda : any = await this.gastosService.getMoneda();
     this.moneda = moneda.data;
-    console.log(this.moneda);
     } catch(error){
       console.log(error);
      }
@@ -52,26 +51,20 @@ export class GastoComponent implements OnInit {
     try {
     let categoriaGastos : any = await this.gastosService.getCategoriaGastos();
     this.categoria = categoriaGastos.data;
-    console.log(this.categoria);
   } catch(error){
     console.log(error);
   }
   }
 
   elegirMoneda(id) {
-    console.log(id)
     this.form.value.moneda = id;
-    console.log(this.form.value)
   }
 
   elegirCategoriaGastos(id) {
-    console.log(id)
     this.form.value.categoria = id;
-    console.log(this.form.value)
   }
 
   pagado(id){
-    console.log(id)
     this.form.value.pagado = id;
   }
   
@@ -79,7 +72,6 @@ export class GastoComponent implements OnInit {
   async nuevoGasto(){
     
     let nuevo_gasto : any = await this.gastosService.nuevoGasto(this.form.value);
-    console.log(this.form.value);
     
     if(nuevo_gasto != null){
       await Swal.fire({

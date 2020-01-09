@@ -45,16 +45,13 @@ export class UsuariosComponent implements OnInit {
   }
 
   elegirRol(id) {
-    console.log(id)
     this.form.value.role = id;
     this.form.value.id_u = this.id_usuario;
-    console.log(this.form.value)
   }
 
-  async editarRol(){
+  async editarRol(modal){
     
     let rol_ok : any = await this.usuariosService.putRolUsuario(this.form.value);
-    console.log(this.form.value);
     
     if(rol_ok != null){
       await Swal.fire({
@@ -66,7 +63,13 @@ export class UsuariosComponent implements OnInit {
     });
 
     this.form.reset();
-    this.router.navigate(['/admin']);
+    
+    this.ngOnInit();
+
+    modal.close();
+
+    location.reload(); 
+ 
 
       } else {
         await Swal.fire({
@@ -75,10 +78,5 @@ export class UsuariosComponent implements OnInit {
           text: 'Hubo un error'
         });
       }
-
-
   }
-
-
-
 }

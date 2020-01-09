@@ -19,7 +19,6 @@ export class PerfilComponent implements OnInit {
   let get_usuario : any = await this.usuariosService.getUsuario();
 
   let usuario = get_usuario.data[0];
-  console.log(usuario.nombre_u);
   
 
     this.form = new FormGroup({
@@ -38,7 +37,7 @@ export class PerfilComponent implements OnInit {
       await Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Your work has been saved',
+        title: 'Datos actualizados',
         showConfirmButton: false,
         timer: 1500
       });
@@ -50,8 +49,7 @@ export class PerfilComponent implements OnInit {
       await Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href>Why do I have this issue?</a>'
+        text: 'Hubo un error'
       })
     }
   }

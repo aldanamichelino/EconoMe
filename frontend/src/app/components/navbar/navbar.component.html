@@ -15,6 +15,9 @@
 
           </div>
         </li>
+        <li class="nav-item" *ngIf ="admin;">
+          <a class="nav-link" [routerLink]="['/admin']" >Administradorx<span class="sr-only"></span></a>
+        </li>
         <ng-template #nologin>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/registro']">Registro</a>

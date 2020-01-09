@@ -37,7 +37,5 @@ export class ModalComponentComponent {
           }          
       }
 
-console.log(this.valores.length);
-
     }    
   }

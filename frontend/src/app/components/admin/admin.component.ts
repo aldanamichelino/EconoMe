@@ -33,9 +33,7 @@ export class AdminComponent implements OnInit {
         })
       };
 
-      await this.router.navigate(['/home']);
-
-      console.log(error.error.status);      
+      await this.router.navigate(['/home']);    
     }
 
   }

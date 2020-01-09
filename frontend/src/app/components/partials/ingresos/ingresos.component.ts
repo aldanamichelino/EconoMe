@@ -55,7 +55,6 @@ export class IngresosComponent implements OnInit {
     
     if(respuesta_server.status == 'ok') {
       this.ingresosMes = respuesta_server.data;
-      console.log(this.ingresosMes);
     }
   }
 

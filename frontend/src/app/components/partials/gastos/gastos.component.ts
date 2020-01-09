@@ -28,15 +28,13 @@ export class GastosComponent implements OnInit {
     }
 
     let gastos_mes_respuesta : any = await this.gastosService.getGastosMonth();
-    console.log(gastos_mes_respuesta);
 
     if(gastos_mes_respuesta.status == 'ok' && gastos_mes_respuesta.data.length > 0) {
       this.gastosMes = gastos_mes_respuesta.data;
       this.suma = gastos_mes_respuesta.suma[0];
       this.sumaDolares = gastos_mes_respuesta.suma[1];
 
-      this.titulos = Object.keys(this.gastosMes[0]);
-      console.log(this.gastosMes[0]);    
+      this.titulos = Object.keys(this.gastosMes[0]); 
     } else {
       this.mensaje = "No hubo gastos en el mes corriente."
     }   
@@ -47,7 +45,6 @@ async getSumaGastosMonth() {
   
   if(respuesta_server.status == 'ok') {
     this.gastosMes = respuesta_server.data;
-    console.log(this.gastosMes);
   }
 }
 

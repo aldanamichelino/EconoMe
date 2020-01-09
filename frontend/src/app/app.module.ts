@@ -24,7 +24,6 @@ import { AhorrosHistorialComponent } from './components/historial/ahorros-histor
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UsuariosComponent } from './components/admin/usuarios/usuarios.component';
-import { CategoriasComponent } from './components/admin/categorias/categorias.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +45,7 @@ import { CategoriasComponent } from './components/admin/categorias/categorias.co
     AhorrosHistorialComponent,
     PerfilComponent,
     AdminComponent,
-    UsuariosComponent,
-    CategoriasComponent
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,

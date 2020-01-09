@@ -44,7 +44,6 @@ async getMoneda(){
   try {
   let moneda : any = await this.ingresosService.getMoneda();
   this.moneda = moneda.data;
-  console.log(this.moneda)
   } catch(error){
     console.log(error);
    }
@@ -56,27 +55,22 @@ async getMoneda(){
     try {
     let categoriaIngresos : any = await this.ingresosService.getCategorias();
     this.categorias = categoriaIngresos.data;
-    console.log(categoriaIngresos);
     } catch(error){
     console.log(error);
     }
   }
 
   elegirMoneda(id) {
-    console.log(id)
     this.form.value.moneda = id;
-    console.log(this.form.value)
   }
 
   elegirCategoriaIngresos(id) {    
     this.form.value.categoria = id;
-    console.log(this.form.value)
   }
 
   async nuevoIngreso(){
     
     let nuevo_ingreso : any = await this.ingresosService.postIngreso(this.form.value);
-    console.log(this.form.value);
     
     if(nuevo_ingreso != null){
       await Swal.fire({

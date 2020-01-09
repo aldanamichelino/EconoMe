@@ -35,22 +35,18 @@ export class AhorroComponent implements OnInit {
     try {
     let moneda : any = await this.ahorrosService.getMoneda();
     this.moneda = moneda.data;
-    console.log(this.moneda);
     } catch(error){
       console.log(error);
      }
   }
 
   elegirMoneda(id) {
-    console.log(id)
     this.form.value.moneda = id;
-    console.log(this.form.value)
   }
 
   async nuevoAhorro(){
     
     let nuevo_ahorro : any = await this.ahorrosService.insertarAhorro(this.form.value);
-    console.log(this.form.value);
     
     if(nuevo_ahorro != null){
       await Swal.fire({
@@ -62,7 +58,6 @@ export class AhorroComponent implements OnInit {
     });
 
     this.form.reset();
-        //this.router.navigate(['Login])
 
       } else {
         await Swal.fire({

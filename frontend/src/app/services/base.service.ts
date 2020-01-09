@@ -65,9 +65,7 @@ export class BaseService {
 
   async post(obj) {
     try {
-      // console.log(this.url_server + this.endpoint);
       const options : any = this.getHttpOptions();
-      console.log(options)
       return this.http.post(this.url_server + this.endpoint, obj, options).toPromise();
     } catch (error) {
       throw error;
@@ -76,8 +74,6 @@ export class BaseService {
 
   async put(obj) {
     try {
-      // http://localhost:3000/usuarios
-      console.log(this.url_server + this.endpoint);
       const options = this.getHttpOptions();
       return this.http.put(this.url_server + this.endpoint, obj, options).toPromise();
       

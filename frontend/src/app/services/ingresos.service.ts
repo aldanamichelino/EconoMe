@@ -81,19 +81,5 @@ export class IngresosService extends BaseService{
     }
   }
 
-  
-
-  // async deleteIngreso(id_i) {
-  //   try {
-  //     this.setEndPoint('/ingresos');
-
-  //     return this.delete(id_i);
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  
 }
 

@@ -51,26 +51,20 @@ export class AhorrosComponent implements OnInit {
     }
 
     let ahorros_total : any = await this.ahorrosService.getAhorrosUsuarios();
-    console.log(ahorros_total);
 
     let detalle_ahorros : any = await this.ahorrosService.getAhorrosDetalladosUsuario();
-    console.log(detalle_ahorros);
 
     let objetivos : any = await this.ahorrosService.getCuentaProyecto();
-    console.log(objetivos);
 
     let contar : any = await this.ahorrosService.contarCP();
-    console.log(contar);
 
     if(contar != null) {
       this.contar = contar.data[0].cuenta;
-      console.log(this.contar);
     }
 
     if(objetivos.data.length > 0) {
       this.cPPesos = objetivos.data[0];
       this.cPDolares = objetivos.data[1];
-      console.log(this.cPPesos);
     }
 
     if(ahorros_total == 'ok' && ahorros_total.ahorros_total.length > 0) {
@@ -93,7 +87,6 @@ export class AhorrosComponent implements OnInit {
     try {
     let idCPP : any = await this.ahorrosService.getIdCPP();
     this.idCPP = idCPP.data[0];
-    console.log(this.idCPP);
     } catch(error){
       console.log(error);
      }
@@ -103,7 +96,6 @@ export class AhorrosComponent implements OnInit {
     try {
     let idCPD : any = await this.ahorrosService.getIdCPD();
     this.idCPD = idCPD.data[1];
-    console.log(this.idCPD);
     } catch(error){
       console.log(error);
      }
@@ -113,14 +105,12 @@ export class AhorrosComponent implements OnInit {
     try {
     let moneda : any = await this.ahorrosService.getMoneda();
     this.moneda = moneda.data;
-    console.log(this.moneda);
     } catch(error){
       console.log(error);
      }
   }
 
   elegirMoneda(id) {
-    console.log(id)
     this.form.value.moneda = id;
 
     this.mensaje2 = this.mensaje3 = "";
@@ -136,7 +126,6 @@ export class AhorrosComponent implements OnInit {
   async nuevaCuentaProyecto(){
     
     let nueva_cp : any = await this.ahorrosService.insertarCuentaProyecto(this.form.value);
-    console.log(this.form.value);
     
     if(nueva_cp != null){
       await Swal.fire({
