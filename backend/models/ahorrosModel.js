@@ -38,13 +38,10 @@ async function getCuentaProyecto(id) {
 async function insertarAhorro(monto, moneda, id_u, fecha){
     try {
 
-        let id_cp = await getIdCP(id_u);
-
         let ahorro = {
             monto_a : monto,
             id_moneda_a : moneda,
             id_u_a : id_u,
-            id_cp_a : id_cp[0].id_cp,
             fecha : fecha
         }
 
@@ -100,7 +97,7 @@ async function getAhorrosUsuario(id_u){
 
 async function getAhorrosMonth(id) {
     try {
-        let query = "SELECT date_format(fecha, '%d-%m-%Y') as fecha, monto_a as monto, moneda FROM ?? JOIN ?? ON id_moneda_a = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_a = ? and monto_a > 0";
+        let query = "SELECT date_format(fecha, '%d-%m-%Y') as fecha, monto_a as monto, simbolo, moneda FROM ?? JOIN ?? ON id_moneda_a = id_m WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND id_u_a = ? and monto_a > 0";
         const rows = await pool.query(query, [process.env.TABLA_AHORROS,
         process.env.TABLA_MONEDA, id]);
 
@@ -113,7 +110,7 @@ async function getAhorrosMonth(id) {
 
 async function getAhorrosDetalladosUsuario(id_u){
     try {
-        let query = "select date_format(fecha, '%d-%m-%Y') as Fecha, monto_a as Monto, moneda as Moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? ORDER BY Fecha DESC"
+        let query = "select date_format(fecha, '%d-%m-%Y') as Fecha, monto_a as Monto, simbolo, moneda as Moneda from ?? JOIN ?? ON id_moneda_a = id_m where id_u_a = ? ORDER BY Fecha DESC"
         const rows = await pool.query(query, [process.env.TABLA_AHORROS,
         process.env.TABLA_MONEDA, id_u]);
         return rows;
