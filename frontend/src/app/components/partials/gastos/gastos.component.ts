@@ -12,8 +12,8 @@ import {ModalManager} from "ngb-modal";
 export class GastosComponent implements OnInit {
 
   gastosMes : any [] = [];
-  suma : number = 0;
-  sumaDolares : number = 1;
+  suma : any;
+  sumaDolares : any;
   nombreComponente : string = "Gastos";
   titulos : any [] = [];
   nombre : string = '';
@@ -30,7 +30,7 @@ export class GastosComponent implements OnInit {
     let gastos_mes_respuesta : any = await this.gastosService.getGastosMonth();
     console.log(gastos_mes_respuesta);
 
-    if(gastos_mes_respuesta.status == 'ok' && gastos_mes_respuesta.data.length > 0) {
+    if(gastos_mes_respuesta.data.length > 0) {
       this.gastosMes = gastos_mes_respuesta.data;
       this.suma = gastos_mes_respuesta.suma[0];
       this.sumaDolares = gastos_mes_respuesta.suma[1];
@@ -39,6 +39,8 @@ export class GastosComponent implements OnInit {
       console.log(this.gastosMes[0]);    
     } else {
       this.mensaje = "No hubo gastos en el mes corriente."
+      console.log(this.mensaje)
+      console.log(this.gastosMes);
     }   
 }
 

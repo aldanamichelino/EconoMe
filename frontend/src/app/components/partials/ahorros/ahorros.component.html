@@ -1,12 +1,23 @@
 <h1>Ahorros</h1>
 
-<p>{{mensaje}}</p>
-<p>{{sumaDolares.simbolo}} {{sumaDolares.monto}}</p>
-<p>{{sumaMonto.simbolo}} {{sumaMonto.monto}}</p>
+<!-- <p>{{mensaje}}</p>
+<p>{{sumaMonto ? sumaMonto.simbolo : "Todavía no ahorraste en pesos este mes"}} {{sumaMonto ? sumaMonto.monto : ""}}</p>
+<p>{{sumaDolares ? sumaDolares.simbolo : "Todavía no ahorraste en dólares este mes"}} {{sumaDolares ? sumaDolares.monto : ""}}</p> -->
+
+<div *ngIf = "ahorrosDelMes.length > 0; else noHubo">
+    <p *ngIf= "sumaMonto != undefined">{{sumaMonto.simbolo}} {{sumaMonto.monto}}</p>
+    <p *ngIf= "sumaDolares != undefined">{{sumaDolares.simbolo}} {{sumaDolares.monto}}</p>
+</div>
+
+<ng-template #noHubo>
+    <p>{{mensaje}}</p>
+</ng-template>
+
+
 
 
 <div class="simbols">
-<app-modal-component [componente]="[nombreComponente, detalleAhorros, titulos]"></app-modal-component>
+<app-modal-component [componente]="[nombreComponente, ahorrosDelMes, titulos]"></app-modal-component>
 <button (click)="agregarAhorro()" class="boton-home btn btn-lg btn-outline-primary"><i class="fas fa-plus"></i></button>
 <button [routerLink]="['/historial']" class="boton-home btn btn-lg btn-outline-primary"><i class="fa fa-history" aria-hidden="true"></i></button>   
 </div>

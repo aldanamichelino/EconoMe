@@ -1,8 +1,13 @@
 <h1>Gastos</h1>
 
-<p>{{mensaje}}</p>
-<p>{{suma.simbolo}} {{suma.monto}}</p>
-<p>{{sumaDolares.simbolo}} {{sumaDolares.monto}}</p>
+<div *ngIf = "gastosMes.length > 0; else noHubo">
+    <p *ngIf= "suma != undefined">{{suma.simbolo}} {{suma.monto}}</p>
+    <p *ngIf= "sumaDolares != undefined">{{sumaDolares.simbolo}} {{sumaDolares.monto}}</p>
+</div>
+
+<ng-template #noHubo>
+    <p>{{mensaje}}</p>
+</ng-template>
 
 
 <div class="simbols">

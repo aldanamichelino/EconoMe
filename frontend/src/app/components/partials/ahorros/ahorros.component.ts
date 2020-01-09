@@ -13,10 +13,11 @@ import Swal from 'sweetalert2';
 })
 export class AhorrosComponent implements OnInit {
 
-  ahorrosTotal : any [] = [];
+  ahorrosTotal : any;
   detalleAhorros : any [] = [];
-  sumaMonto : number = 0;
-  sumaDolares : number = 1;
+  ahorrosDelMes : any [] = [];
+  sumaMonto : any;
+  sumaDolares : any;
   nombreComponente : string = "Ahorros";
   titulos : any [] = [];
   nombre : string = '';
@@ -50,8 +51,20 @@ export class AhorrosComponent implements OnInit {
       this.nombre = localStorage.getItem('nombre');
     }
 
-    let ahorros_total : any = await this.ahorrosService.getAhorrosUsuarios();
-    console.log(ahorros_total);
+    let ahorros_delmes : any = await this.ahorrosService.getAhorrosMonth();
+    console.log(ahorros_delmes);
+
+    if(ahorros_delmes.ahorros_delmes.length > 0) {
+      this.ahorrosDelMes = ahorros_delmes.ahorros_delmes;
+      this.sumaMonto = ahorros_delmes.ahorros_delmes[0];
+      this.sumaDolares = ahorros_delmes.ahorros_delmes[1];
+    } else {
+      this.mensaje = "No hubo ahorros en el mes corriente."
+      console.log(this.mensaje)
+      console.log(this.ahorrosDelMes)
+    }
+
+    // this.ahorrosTotal = ahorros_total.ahorros_total;
 
     let detalle_ahorros : any = await this.ahorrosService.getAhorrosDetalladosUsuario();
     console.log(detalle_ahorros);
@@ -73,19 +86,11 @@ export class AhorrosComponent implements OnInit {
       console.log(this.cPPesos);
     }
 
-    if(ahorros_total == 'ok' && ahorros_total.ahorros_total.length > 0) {
-      this.ahorrosTotal = ahorros_total.ahorros_total;
-      this.sumaMonto = ahorros_total.ahorros_total[1];
-      this.sumaDolares = ahorros_total.ahorros_total[0];  
-    } else {
-      this.mensaje = "No hubo ahorros en el mes corriente."
-    }
-    
     if(detalle_ahorros.ahorros_detallados.length > 0) {
       this.detalleAhorros = detalle_ahorros.ahorros_detallados;
 
       this.titulos = Object.keys(this.detalleAhorros[0]);
-    }
+    } 
 
   }
 
